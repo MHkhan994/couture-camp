@@ -22,7 +22,7 @@ const Classes = () => {
                 isLoading && <LoadingSpinner></LoadingSpinner>
             }
             {
-                !isLoading && <div className="my-container grid gap-8 mt-20 lg:grid-cols-2">
+                !isLoading && <div className="my-container grid gap-4 mt-20 lg:grid-cols-3">
                     {
                         classes.map(item => <ClassCard data-aos='fade-up' data-aos-duration='2000' key={item._id} item={item}></ClassCard>)
                     }
