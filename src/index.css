@@ -9,10 +9,15 @@ body{
     font-family: 'Poppins', sans-serif;
 }
 
+.my-bg{
+    background-color: #03e9a4;
+}
+
 .my-container{
-    @apply w-[90%] mx-auto
+    @apply w-[80%] mx-auto
 }
 
 .my-button{
-   @apply bg-[#8B9A46] px-5 text-lg py-2 rounded-md
+   border-radius: 20px;
+   @apply my-bg px-5 text-lg py-2  text-white font-semibold
 }

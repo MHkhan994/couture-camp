@@ -1,5 +1,4 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
-import img from '../../../../assets/banner.png';
 import slider1 from '../../../../assets/banner/slider-1.png'
 import slider2 from '../../../../assets/banner/slider-2.png'
 import slider3 from '../../../../assets/banner/slider-3.png'
@@ -12,7 +11,7 @@ import "swiper/css/pagination";
 
 const Banner = () => {
     return (
-        <div className='min-h-[100vh] pt-20 text-white bg-center bg-cover' style={{ backgroundImage: `url(${img})` }}>
+        <div className='min-h-[100vh] pt-20 bg-center bg-cover'>
             <Swiper
                 slidesPerView={1}
                 loop={true}
@@ -26,11 +25,11 @@ const Banner = () => {
                 modules={[Autoplay, Pagination, Navigation]}
                 className='h-full'
             >
-                <SwiperSlide className='w-full'>
+                <SwiperSlide className='w-full mb-6'>
                     <div className='h-full flex flex-col-reverse lg:flex-row items-center justify-between my-container gap-4'>
                         <div className='space-y-4'>
                             <h1 className='text-3xl lg:text-5xl'>Unleash Your Creativity in Fashion Design</h1>
-                            <p>Discover your passion for fashion design through hands-on classes, expert guidance, and exciting projects. Immerse yourself in a creative environment where you can unleash your unique style and bring your fashion dreams to life.</p>
+                            <p>Discover your passion for fashion design through hands-on classes, expert guidance, and exciting projects. Immerse yourself in a creative environment where you can unleash your unique style.</p>
                             <button className='my-button'>Join Now</button>
                         </div>
                         <img src={slider3} alt="" />
