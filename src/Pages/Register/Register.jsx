@@ -61,7 +61,7 @@ const Register = () => {
     };
 
     return (
-        <div className="grid lg:grid-cols-2 items-center min-h-screen my-container gap-8 pt-20 pb-10">
+        <div className="grid lg:grid-cols-2 items-center min-h-screen h-auto my-container gap-8 lg:pt-32 pt-20 pb-10">
             <div>
                 <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
                     <div className="form-control">
@@ -130,7 +130,7 @@ const Register = () => {
                         <label className="label">
                             <span className="label-text">Photo</span>
                         </label>
-                        <input {...register('photo')} type="file" className="" />
+                        <input {...register('photo')} type="file" className="w-full" />
                     </div>
                     {/* {
                         error?.type === 'user exists' && <p>user already exist</p>

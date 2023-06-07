@@ -4,6 +4,9 @@
 @tailwind components;
 @tailwind utilities;
 
+html{
+    scroll-behavior: smooth;
+}
 
 body{
     font-family: 'Poppins', sans-serif;
@@ -14,10 +17,35 @@ body{
 }
 
 .my-container{
-    @apply w-[80%] mx-auto
+    @apply w-[90%] lg:w-[80%] mx-auto
 }
 
 .my-button{
    border-radius: 20px;
    @apply my-bg px-5 text-lg py-2  text-white font-semibold
 }
+
+.my-button:disabled{
+    @apply bg-[#60726d]
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #d4ffe9;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #03e9a4;
+    border-radius: 10px;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #03e9a4;
+  }

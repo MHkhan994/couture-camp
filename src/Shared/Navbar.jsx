@@ -8,26 +8,26 @@ const Navbar = () => {
 
     const { user, logOut } = useContext(AuthContext)
     const [isOpen, setIsOpen] = useState(false)
-    console.log(user?.address);
 
     const handleLogout = () => {
         logOut()
+        isOpen(false)
     }
 
     return (
-        <div className="fixed w-full backdrop-blur-sm z-10">
+        <div className="fixed w-full backdrop-blur-sm z-10 shadow-md">
             <div className=" my-container lg:flex justify-between hidden py-5">
                 <div className="flex items-center">
                     <img className="w-10" src="logo.png" alt="" />
                     <h1 className="italic text-3xl font-bold">CoutureCamp</h1>
                 </div>
-                <ul className="flex gap-8 items-center">
+                <ul className="flex gap-8 items-center text-lg">
                     <NavLink className={({ isActive }) => isActive ? 'border-b-4 border-[#03e9a4] px-1' : 'px-1 border-b-4 border-transparent'} to='/'>Home</NavLink>
                     <NavLink className={({ isActive }) => isActive ? 'border-b-4 border-[#03e9a4] px-1' : 'px-1 border-b-4 border-transparent'} to='/classes'>Classes</NavLink>
                     <NavLink className={({ isActive }) => isActive ? 'border-b-4 border-[#03e9a4] px-1' : 'px-1 border-b-4 border-transparent'} to='/instructors'>Instructors</NavLink>
                     <NavLink className={({ isActive }) => isActive ? 'border-b-4 border-[#03e9a4] px-1' : 'px-1 border-b-4 border-transparent'} to='/dashboard'>Dashboard</NavLink>
                     {
-                        user ? <button onClick={handleLogout} className="my-button">Log Out</button> : <Link className="my-button mb-1" to='/login'>Login</Link>
+                        user ? <button onClick={handleLogout} className="my-button mb-1">Log Out</button> : <Link className="my-button mb-1" to='/login'>Login</Link>
                     }
                     {
                         user && <img className="h-10 w-10 bg-blue-400 rounded-full" src={user.photoURL} alt="" />
@@ -49,13 +49,19 @@ const Navbar = () => {
                     </div>
                 }
                 {
-                    isOpen && <ul className="flex flex-col gap-2 py-4 rounded-md items-center bg-[#cde4dd]  right-1 top-1 w-full ms-auto">
+                    isOpen && <ul className="flex flex-col gap-2 py-4 rounded-md items-center backdrop-blur-sm right-1 top-1 w-full ms-auto">
                         <button onClick={() => { setIsOpen(false) }}>
                             <IoMdClose className="text-2xl absolute right-2 top-2"></IoMdClose>
                         </button>
-                        <NavLink className={({ isActive }) => isActive ? 'border-b-4 border-[#03e9a4] px-1' : 'px-1 border-b-4 border-transparent'} to='/'>Home</NavLink>
-                        <NavLink className={({ isActive }) => isActive ? 'border-b-4 border-[#03e9a4] px-1' : 'px-1 border-b-4 border-transparent'} to='/classes'>Classes</NavLink>
-                        <NavLink className={({ isActive }) => isActive ? 'border-b-4 border-[#03e9a4] px-1' : 'px-1 border-b-4 border-transparent'} to='/instructors'>Instructors</NavLink>
+                        {
+                            user && <img className="h-10 w-10 bg-blue-400 rounded-full" src={user.photoURL} alt="" />
+                        }
+                        <NavLink onClick={() => setIsOpen(false)} className={({ isActive }) => isActive ? 'border-b-4 border-[#03e9a4] px-1' : 'px-1 border-b-4 border-transparent'} to='/'>Home</NavLink>
+                        <NavLink onClick={() => setIsOpen(false)} className={({ isActive }) => isActive ? 'border-b-4 border-[#03e9a4] px-1' : 'px-1 border-b-4 border-transparent'} to='/classes'>Classes</NavLink>
+                        <NavLink onClick={() => setIsOpen(false)} className={({ isActive }) => isActive ? 'border-b-4 border-[#03e9a4] px-1' : 'px-1 border-b-4 border-transparent'} to='/instructors'>Instructors</NavLink>
+                        {
+                            user ? <button onClick={handleLogout} className="my-button">Log Out</button> : <Link onClick={() => setIsOpen(false)} className="my-button mb-1" to='/login'>Login</Link>
+                        }
                     </ul>
                 }
             </div>
