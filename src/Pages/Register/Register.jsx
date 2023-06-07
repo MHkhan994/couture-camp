@@ -1,13 +1,14 @@
-import { set, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import loginImg from '../../assets/login.png'
 import { FaGithub, FaGoogle } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../Providers/AuthProvider";
 import { updateProfile } from "firebase/auth";
+import axios from "axios";
 
 const Register = () => {
-    const { createUser } = useContext(AuthContext)
+    const { createUser, logOut } = useContext(AuthContext)
     const [error, setError] = useState('')
     const navigate = useNavigate()
 
@@ -35,7 +36,20 @@ const Register = () => {
                     address: data.address
                 })
                     .then(() => {
-                        navigate('/')
+                        const newUser = {
+                            email: data.email,
+                            phoneNumber: data.phone || '',
+                            address: data.address || '',
+                            gender: data.gender || '',
+                            role: 'student'
+                        }
+                        axios.post('http://localhost:5000/users', newUser)
+                            .then(res => {
+                                if (res.data.insertedId) {
+                                    logOut()
+                                    navigate('/login')
+                                }
+                            })
                     })
             })
             .catch(error => {

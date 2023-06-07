@@ -1,19 +1,33 @@
 import { useForm } from "react-hook-form";
 import loginImg from '../../assets/login.png'
 import { FaGithub, FaGoogle } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../Providers/AuthProvider";
 
 const Login = () => {
 
     const { login } = useContext(AuthContext)
+    const navigate = useNavigate()
 
     const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmit = (data) => {
         login(data.email, data.password)
-            .then(result => {
-
+            .then((result) => {
+                console.log(result.user);
+                const user = { email: result.user.email, name: result.user.displayName }
+                fetch('http://localhost:5000/jwt', {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify(user)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        localStorage.setItem('access-token', JSON.stringify(data.token))
+                        navigate('/')
+                    })
             })
             .catch(error => console.log(error))
     };
