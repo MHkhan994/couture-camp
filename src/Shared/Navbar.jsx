@@ -1,5 +1,5 @@
 import { Link, NavLink } from "react-router-dom";
-import { FaBars, FaBitbucket, FaShoppingCart } from 'react-icons/fa';
+import { FaBars, FaShoppingCart } from 'react-icons/fa';
 import { IoMdClose } from 'react-icons/io'
 import { useContext, useState } from "react";
 import { AuthContext } from "../Providers/AuthProvider";
@@ -11,7 +11,6 @@ const Navbar = () => {
     const { user, logOut } = useContext(AuthContext)
     const [isOpen, setIsOpen] = useState(false)
 
-    console.log(user);
 
     const handleLogout = () => {
         logOut()
@@ -26,13 +25,13 @@ const Navbar = () => {
                     <img className="w-10" src="logo.png" alt="" />
                     <h1 className="italic text-3xl font-bold">CoutureCamp</h1>
                 </div>
-                <ul className="flex gap-8 items-center text-lg">
+                <ul className="flex gap-5 items-center text-lg">
                     <NavLink className={({ isActive }) => isActive ? 'border-b-4 border-[#03e9a4] px-1' : 'px-1 border-b-4 border-transparent'} to='/'>Home</NavLink>
                     <NavLink className={({ isActive }) => isActive ? 'border-b-4 border-[#03e9a4] px-1' : 'px-1 border-b-4 border-transparent'} to='/classes'>Classes</NavLink>
                     <NavLink className={({ isActive }) => isActive ? 'border-b-4 border-[#03e9a4] px-1' : 'px-1 border-b-4 border-transparent'} to='/instructors'>Instructors</NavLink>
                     <NavLink className={({ isActive }) => isActive ? 'border-b-4 border-[#03e9a4] px-1' : 'px-1 border-b-4 border-transparent'} to='/dashboard'>Dashboard</NavLink>
-                    <NavLink className={({ isActive }) => isActive ? 'border-b-4 border-[#03e9a4] px-1' : 'px-1 border-b-4 border-transparent'} to='/dashboard/selectedClasses'>
-                        <p className="absolute top-2 ps-1 text-[#03e9a4]">{cart.length}</p>
+                    <NavLink className='relative me-2' to='/dashboard/selectedClasses'>
+                        <p className="absolute -right-4 -top-3 text-[#03e9a4]">{cart.length}</p>
                         <FaShoppingCart className="text-xl">
                         </FaShoppingCart>
                     </NavLink>
@@ -59,7 +58,7 @@ const Navbar = () => {
                     </div>
                 }
                 {
-                    isOpen && <ul className="flex flex-col gap-2 py-4 rounded-md items-center backdrop-blur-sm right-1 top-1 w-full ms-auto">
+                    isOpen && <ul className="flex flex-col gap-4 py-4 rounded-md items-center backdrop-blur-3xl right-1 top-1 w-full ms-auto">
                         <button onClick={() => { setIsOpen(false) }}>
                             <IoMdClose className="text-2xl absolute right-2 top-2"></IoMdClose>
                         </button>
@@ -69,6 +68,11 @@ const Navbar = () => {
                         <NavLink onClick={() => setIsOpen(false)} className={({ isActive }) => isActive ? 'border-b-4 border-[#03e9a4] px-1' : 'px-1 border-b-4 border-transparent'} to='/'>Home</NavLink>
                         <NavLink onClick={() => setIsOpen(false)} className={({ isActive }) => isActive ? 'border-b-4 border-[#03e9a4] px-1' : 'px-1 border-b-4 border-transparent'} to='/classes'>Classes</NavLink>
                         <NavLink onClick={() => setIsOpen(false)} className={({ isActive }) => isActive ? 'border-b-4 border-[#03e9a4] px-1' : 'px-1 border-b-4 border-transparent'} to='/instructors'>Instructors</NavLink>
+                        <NavLink className='relative' to='/dashboard/selectedClasses'>
+                            <p className="absolute -right-4 -top-2 text-[#03e9a4]">{cart.length}</p>
+                            <FaShoppingCart className="text-xl">
+                            </FaShoppingCart>
+                        </NavLink>
                         {
                             user ? <button onClick={handleLogout} className="my-button">Log Out</button> : <Link onClick={() => setIsOpen(false)} className="my-button mb-1" to='/login'>Login</Link>
                         }

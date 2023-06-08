@@ -14,7 +14,6 @@ const PopularClasses = () => {
         }
     })
 
-    console.log(classes);
 
     return (
         <div className="py-20 my-container">

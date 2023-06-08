@@ -4,7 +4,7 @@ import 'aos/dist/aos.css';
 import './Instructors.css'
 
 const InstructorCard = ({ item }) => {
-    const { name, image, email, classNames } = item;
+    const { name, image, email, classNames, students } = item;
 
     useEffect(() => {
         Aos.init()
@@ -21,6 +21,7 @@ const InstructorCard = ({ item }) => {
             <div className="card-body">
                 <h2 className="text-2xl font-bold">{name}</h2>
                 <div>
+                    <p className='font-semibold text-lg'>Students: {students}</p>
                     <p className='text-lg font-semibold'>Classes:</p>
                     {
                         classNames.map((name, index) => <p className='ps-4' key={name}>

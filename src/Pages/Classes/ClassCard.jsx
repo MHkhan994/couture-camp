@@ -7,12 +7,16 @@ import Swal from 'sweetalert2';
 import UseCart from '../../Hooks/UseCart';
 
 const ClassCard = ({ item }) => {
+    const { _id, name, price, instructor, image, duration, availableSeats } = item;
 
-    const { refetch } = UseCart()
+    const { cart, refetch } = UseCart()
+    // gets all the item ids to cartIds array. if item._id is in cartIds button isDisabled === true
+    const cartIds = cart.map(item => item.itemId)
+    const isdisabled = cartIds.includes(_id) || availableSeats === 0
+
     const { user } = useContext(AuthContext)
     const [secureAxios] = UseSecureAxios()
 
-    const { _id, name, price, instructor, image, duration, availableSeats } = item;
 
     const handleAddtoCart = () => {
         const classItem = {
@@ -26,7 +30,17 @@ const ClassCard = ({ item }) => {
 
         secureAxios.post('/cart', classItem)
             .then(res => {
-                if (res.data.insertedId) {
+                console.log(res.data);
+                if (res.data.exists === 'exists') {
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'warning',
+                        title: 'class already added',
+                        showConfirmButton: false,
+                        timer: 1200
+                    })
+                }
+                else if (res.data.insertedId) {
                     Swal.fire({
                         position: 'center',
                         icon: 'success',
@@ -55,7 +69,7 @@ const ClassCard = ({ item }) => {
                     <p>Course Fee: <span className='text-green-600'>${price}</span></p>
                     <p>Duration: {duration} days</p>
                 </div>
-                <button onClick={handleAddtoCart} disabled={availableSeats === 0} className={availableSeats === 0 ? "my-button w-40 mx-auto" : "my-button w-40 mx-auto mt-2"}>
+                <button onClick={handleAddtoCart} disabled={isdisabled} className={availableSeats === 0 ? "my-button w-40 mx-auto" : "my-button w-40 mx-auto mt-2"}>
                     Select
                 </button>
             </div>
