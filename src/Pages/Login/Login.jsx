@@ -25,7 +25,7 @@ const Login = () => {
                 })
                     .then(res => res.json())
                     .then(data => {
-                        localStorage.setItem('access-token', JSON.stringify(data.token))
+                        localStorage.setItem('access-token', data.token)
                         navigate('/')
                     })
             })

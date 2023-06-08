@@ -11,6 +11,7 @@ const Navbar = () => {
 
     const handleLogout = () => {
         logOut()
+        localStorage.removeItem('access-token')
         isOpen(false)
     }
 

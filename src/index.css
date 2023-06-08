@@ -21,12 +21,22 @@ body{
 }
 
 .my-button{
-   border-radius: 20px;
-   @apply my-bg px-5 text-lg py-2  text-white font-semibold
+  transition: all ease .4s;
+  border-radius: 20px;
+  @apply my-bg px-5 text-lg py-2  text-white font-semibold
+}
+
+.my-button:hover{
+  background: #06d497;
 }
 
 .my-button:disabled{
     @apply bg-[#60726d]
+}
+
+.my-button-second{
+  border-radius: 20px;
+  @apply bg-[#015a35] px-5 text-lg py-2  text-white font-semibold
 }
 
 /* width */
