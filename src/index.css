@@ -21,7 +21,7 @@ body{
 }
 
 .dash-container{
-  @apply w-[90%] lg:w-[95%] mx-auto
+  @apply w-[90%] lg:w-[90%] mx-auto
 }
 
 .my-button{

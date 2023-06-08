@@ -10,7 +10,7 @@ const UseCart = () => {
     const [secureAxios] = UseSecureAxios()
     const { data: cart = [], refetch } = useQuery({
         queryKey: ['cart', user],
-        enabled: loading && user !== null,
+        enabled: !loading && user !== null,
         queryFn: async () => {
             const res = await secureAxios.get(`/cart?email=${user?.email}`)
             return res.data

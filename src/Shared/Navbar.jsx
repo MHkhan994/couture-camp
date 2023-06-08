@@ -4,10 +4,12 @@ import { IoMdClose } from 'react-icons/io'
 import { useContext, useState } from "react";
 import { AuthContext } from "../Providers/AuthProvider";
 import UseCart from "../Hooks/UseCart";
+import UseFindRole from "../Hooks/UseFindRole";
 
 const Navbar = () => {
 
     const { user, logOut } = useContext(AuthContext)
+    const { role } = UseFindRole()
     const [isOpen, setIsOpen] = useState(false)
     const { cart } = UseCart()
 
@@ -30,11 +32,13 @@ const Navbar = () => {
                     <NavLink className={({ isActive }) => isActive ? 'border-b-4 border-[#03e9a4] px-1' : 'px-1 border-b-4 border-transparent'} to='/classes'>Classes</NavLink>
                     <NavLink className={({ isActive }) => isActive ? 'border-b-4 border-[#03e9a4] px-1' : 'px-1 border-b-4 border-transparent'} to='/instructors'>Instructors</NavLink>
                     <NavLink className={({ isActive }) => isActive ? 'border-b-4 border-[#03e9a4] px-1' : 'px-1 border-b-4 border-transparent'} to='/dashboard'>Dashboard</NavLink>
-                    <NavLink className='relative me-2' to='/dashboard/selectedClasses'>
-                        <p className="absolute -right-4 -top-3 text-[#03e9a4]">{cart?.length || 0}</p>
-                        <FaShoppingCart className="text-xl">
-                        </FaShoppingCart>
-                    </NavLink>
+                    {
+                        role === 'student' && <NavLink className='relative me-2' to='/dashboard/selectedClasses'>
+                            <p className="absolute -right-4 -top-3 text-[#03e9a4]">{cart?.length || 0}</p>
+                            <FaShoppingCart className="text-xl">
+                            </FaShoppingCart>
+                        </NavLink>
+                    }
                     {
                         user ? <button onClick={handleLogout} className="my-button mb-1">Log Out</button> : <Link className="my-button mb-1" to='/login'>Login</Link>
                     }
@@ -68,13 +72,19 @@ const Navbar = () => {
                         <NavLink onClick={() => setIsOpen(false)} className={({ isActive }) => isActive ? 'border-b-4 border-[#03e9a4] px-1' : 'px-1 border-b-4 border-transparent'} to='/'>Home</NavLink>
                         <NavLink onClick={() => setIsOpen(false)} className={({ isActive }) => isActive ? 'border-b-4 border-[#03e9a4] px-1' : 'px-1 border-b-4 border-transparent'} to='/classes'>Classes</NavLink>
                         <NavLink onClick={() => setIsOpen(false)} className={({ isActive }) => isActive ? 'border-b-4 border-[#03e9a4] px-1' : 'px-1 border-b-4 border-transparent'} to='/instructors'>Instructors</NavLink>
-                        <NavLink className='relative' to='/dashboard/selectedClasses'>
-                            <p className="absolute -right-4 -top-2 text-[#03e9a4]">{cart?.length || 0}</p>
-                            <FaShoppingCart className="text-xl">
-                            </FaShoppingCart>
-                        </NavLink>
+                        <NavLink className={({ isActive }) => isActive ? 'border-b-4 border-[#03e9a4] px-1' : 'px-1 border-b-4 border-transparent'} to='/dashboard'>Dashboard</NavLink>
                         {
-                            user ? <button onClick={handleLogout} className="my-button">Log Out</button> : <Link onClick={() => setIsOpen(false)} className="my-button mb-1" to='/login'>Login</Link>
+                            role === 'student' && <NavLink className='relative me-2' to='/dashboard/selectedClasses'>
+                                <p className="absolute -right-4 -top-3 text-[#03e9a4]">{cart?.length || 0}</p>
+                                <FaShoppingCart className="text-xl">
+                                </FaShoppingCart>
+                            </NavLink>
+                        }
+                        {
+                            user ? <button onClick={handleLogout} className="my-button mb-1">Log Out</button> : <Link className="my-button mb-1" to='/login'>Login</Link>
+                        }
+                        {
+                            user && <img className="h-10 w-10 bg-blue-400 rounded-full" src={user.photoURL} alt="" />
                         }
                     </ul>
                 }

@@ -83,7 +83,7 @@ const Register = () => {
         googleLogin()
             .then((result) => {
                 const loggedUser = result.user;
-                const user = { email: result.user.email, name: result.user.displayName }
+                const user = { email: loggedUser.email, name: loggedUser.displayName }
                 fetch('http://localhost:5000/jwt', {
                     method: 'POST',
                     headers: {
@@ -100,6 +100,7 @@ const Register = () => {
                             phoneNumber: loggedUser.phone || '',
                             address: loggedUser.address || '',
                             gender: loggedUser.gender || '',
+                            image: loggedUser.photoURL || '',
                             role: 'student'
                         }
                         axios.post('http://localhost:5000/users', newUser)
