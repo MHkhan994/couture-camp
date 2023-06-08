@@ -4,12 +4,14 @@ import { FaGithub, FaGoogle } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../Providers/AuthProvider";
+import axios from "axios";
 
 const Login = () => {
 
-    const { login } = useContext(AuthContext)
+    const { login, googleLogin } = useContext(AuthContext)
     const navigate = useNavigate()
 
+    // handle email pass login
     const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmit = (data) => {
         login(data.email, data.password)
@@ -31,6 +33,45 @@ const Login = () => {
             })
             .catch(error => console.log(error))
     };
+
+
+    // handle googleSignin
+    const handleGoogleLogin = () => {
+        googleLogin()
+            .then((result) => {
+                const loggedUser = result.user;
+                const user = { email: result.user.email, name: result.user.displayName }
+                fetch('http://localhost:5000/jwt', {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify(user)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        localStorage.setItem('access-token', data.token)
+                        const newUser = {
+                            email: loggedUser.email,
+                            name: loggedUser.displayName,
+                            phoneNumber: loggedUser.phone || '',
+                            address: loggedUser.address || '',
+                            gender: loggedUser.gender || '',
+                            role: 'student'
+                        }
+                        axios.post('http://localhost:5000/users', newUser)
+                            .then(res => {
+                                if (res.data) {
+                                    navigate('/')
+                                }
+                            })
+                        navigate('/')
+                    })
+
+            })
+            .catch(error => console.log(error))
+    }
+
 
     return (
         <div className="grid lg:grid-cols-2 items-center min-h-screen my-container gap-8 pt-20">
@@ -57,7 +98,7 @@ const Login = () => {
                 </form>
                 <p className="pt-5 text-center">Or login with</p>
                 <div className="flex justify-center pt-3 text-white text-2xl gap-3">
-                    <button className="bg-blue-500 rounded-full px-2 py-2">
+                    <button onClick={handleGoogleLogin} className="bg-blue-500 rounded-full px-2 py-2">
                         <FaGoogle></FaGoogle>
                     </button>
                     <button className="bg-gray-500 rounded-full px-2 py-2">
@@ -72,3 +113,5 @@ const Login = () => {
 };
 
 export default Login;
+
+

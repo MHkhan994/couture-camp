@@ -1,0 +1,11 @@
+.das-nav li{
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.das-nav{
+    
+}

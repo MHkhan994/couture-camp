@@ -1,18 +1,22 @@
 import { Link, NavLink } from "react-router-dom";
-import { FaBars } from 'react-icons/fa';
+import { FaBars, FaBitbucket, FaShoppingCart } from 'react-icons/fa';
 import { IoMdClose } from 'react-icons/io'
 import { useContext, useState } from "react";
 import { AuthContext } from "../Providers/AuthProvider";
+import UseCart from "../Hooks/UseCart";
 
 const Navbar = () => {
 
+    const { cart } = UseCart()
     const { user, logOut } = useContext(AuthContext)
     const [isOpen, setIsOpen] = useState(false)
+
+    console.log(user);
 
     const handleLogout = () => {
         logOut()
         localStorage.removeItem('access-token')
-        isOpen(false)
+        setIsOpen(false)
     }
 
     return (
@@ -27,6 +31,11 @@ const Navbar = () => {
                     <NavLink className={({ isActive }) => isActive ? 'border-b-4 border-[#03e9a4] px-1' : 'px-1 border-b-4 border-transparent'} to='/classes'>Classes</NavLink>
                     <NavLink className={({ isActive }) => isActive ? 'border-b-4 border-[#03e9a4] px-1' : 'px-1 border-b-4 border-transparent'} to='/instructors'>Instructors</NavLink>
                     <NavLink className={({ isActive }) => isActive ? 'border-b-4 border-[#03e9a4] px-1' : 'px-1 border-b-4 border-transparent'} to='/dashboard'>Dashboard</NavLink>
+                    <NavLink className={({ isActive }) => isActive ? 'border-b-4 border-[#03e9a4] px-1' : 'px-1 border-b-4 border-transparent'} to='/dashboard/selectedClasses'>
+                        <p className="absolute top-2 ps-1 text-[#03e9a4]">{cart.length}</p>
+                        <FaShoppingCart className="text-xl">
+                        </FaShoppingCart>
+                    </NavLink>
                     {
                         user ? <button onClick={handleLogout} className="my-button mb-1">Log Out</button> : <Link className="my-button mb-1" to='/login'>Login</Link>
                     }
