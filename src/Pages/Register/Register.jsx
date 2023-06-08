@@ -7,6 +7,8 @@ import { AuthContext } from "../../Providers/AuthProvider";
 import { updateProfile } from "firebase/auth";
 import axios from "axios";
 
+const img_hosting_token = import.meta.env.VITE_Img_Upload_Token;
+
 const Register = () => {
     const { createUser, logOut, googleLogin } = useContext(AuthContext)
     const [error, setError] = useState('')
@@ -29,38 +31,51 @@ const Register = () => {
             setError("password does't match")
             return
         }
-        createUser(data.email, data.password)
-            .then(result => {
-                console.log(result.user);
-                updateProfile(result.user, {
-                    displayName: data.name,
-                    phoneNumber: data.phone || null,
-                    address: data.address
-                })
-                    .then(() => {
-                        const newUser = {
-                            email: data.email,
-                            name: data.name,
-                            phoneNumber: data.phone || '',
-                            address: data.address || '',
-                            gender: data.gender || '',
-                            role: 'student'
-                        }
-                        axios.post('http://localhost:5000/users', newUser)
-                            .then(res => {
-                                if (res.data.insertedId) {
-                                    logOut()
-                                    navigate('/login')
-                                }
+
+        const formData = new FormData()
+        formData.append('image', data.photo[0])
+        fetch(`https://api.imgbb.com/1/upload?&key=${img_hosting_token}`, {
+            method: 'POST',
+            body: formData
+        })
+            .then(res => res.json())
+            .then(imgData => {
+                if (imgData.success) {
+                    const imgURL = imgData.data.display_url
+                    createUser(data.email, data.password)
+                        .then(result => {
+                            console.log(result.user);
+                            updateProfile(result.user, {
+                                displayName: data.name,
+                                photoURL: imgURL
                             })
-                    })
-            })
-            .catch(error => {
-                console.log(error.message)
-                if (error.message.includes('email-already-in-use')) {
-                    setError({ type: 'user exists' })
+                                .then(() => {
+                                    const newUser = {
+                                        email: data.email,
+                                        name: data.name,
+                                        phoneNumber: data.phone || '',
+                                        address: data.address || '',
+                                        gender: data.gender || '',
+                                        role: 'student'
+                                    }
+                                    axios.post('http://localhost:5000/users', newUser)
+                                        .then(res => {
+                                            if (res.data.insertedId) {
+                                                logOut()
+                                                navigate('/login')
+                                            }
+                                        })
+                                })
+                        })
+                        .catch(error => {
+                            console.log(error.message)
+                            if (error.message.includes('email-already-in-use')) {
+                                setError({ type: 'user exists' })
+                            }
+                        })
                 }
             })
+
     };
 
     // handle googleSignin

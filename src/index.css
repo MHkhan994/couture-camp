@@ -20,6 +20,10 @@ body{
     @apply w-[90%] lg:w-[80%] mx-auto
 }
 
+.dash-container{
+  @apply w-[90%] lg:w-[95%] mx-auto
+}
+
 .my-button{
   transition: all ease .4s;
   border-radius: 20px;

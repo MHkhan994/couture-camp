@@ -6,6 +6,12 @@
     font-weight: 600;
 }
 
+@media screen and (max-width: 576px) {
+    .das-nav li{
+       font-size: 15px;
+    }
+}
+
 .das-nav{
     
 }

@@ -7,9 +7,9 @@ import UseCart from "../Hooks/UseCart";
 
 const Navbar = () => {
 
-    const { cart } = UseCart()
     const { user, logOut } = useContext(AuthContext)
     const [isOpen, setIsOpen] = useState(false)
+    const { cart } = UseCart()
 
 
     const handleLogout = () => {
@@ -31,7 +31,7 @@ const Navbar = () => {
                     <NavLink className={({ isActive }) => isActive ? 'border-b-4 border-[#03e9a4] px-1' : 'px-1 border-b-4 border-transparent'} to='/instructors'>Instructors</NavLink>
                     <NavLink className={({ isActive }) => isActive ? 'border-b-4 border-[#03e9a4] px-1' : 'px-1 border-b-4 border-transparent'} to='/dashboard'>Dashboard</NavLink>
                     <NavLink className='relative me-2' to='/dashboard/selectedClasses'>
-                        <p className="absolute -right-4 -top-3 text-[#03e9a4]">{cart.length}</p>
+                        <p className="absolute -right-4 -top-3 text-[#03e9a4]">{cart?.length || 0}</p>
                         <FaShoppingCart className="text-xl">
                         </FaShoppingCart>
                     </NavLink>
@@ -69,7 +69,7 @@ const Navbar = () => {
                         <NavLink onClick={() => setIsOpen(false)} className={({ isActive }) => isActive ? 'border-b-4 border-[#03e9a4] px-1' : 'px-1 border-b-4 border-transparent'} to='/classes'>Classes</NavLink>
                         <NavLink onClick={() => setIsOpen(false)} className={({ isActive }) => isActive ? 'border-b-4 border-[#03e9a4] px-1' : 'px-1 border-b-4 border-transparent'} to='/instructors'>Instructors</NavLink>
                         <NavLink className='relative' to='/dashboard/selectedClasses'>
-                            <p className="absolute -right-4 -top-2 text-[#03e9a4]">{cart.length}</p>
+                            <p className="absolute -right-4 -top-2 text-[#03e9a4]">{cart?.length || 0}</p>
                             <FaShoppingCart className="text-xl">
                             </FaShoppingCart>
                         </NavLink>

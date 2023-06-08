@@ -5,52 +5,78 @@ import { AuthContext } from '../../Providers/AuthProvider';
 import UseSecureAxios from '../../Hooks/UseSecureAxios';
 import Swal from 'sweetalert2';
 import UseCart from '../../Hooks/UseCart';
+import { useNavigate } from 'react-router-dom';
 
 const ClassCard = ({ item }) => {
     const { _id, name, price, instructor, image, duration, availableSeats } = item;
+    const { user, loading } = useContext(AuthContext)
+    const [secureAxios] = UseSecureAxios()
+    const navigate = useNavigate()
 
     const { cart, refetch } = UseCart()
+    const userCart = cart.filter(item => item.email === user.email)
     // gets all the item ids to cartIds array. if item._id is in cartIds button isDisabled === true
-    const cartIds = cart.map(item => item.itemId)
+    const cartIds = userCart.map(item => item.itemId)
     const isdisabled = cartIds.includes(_id) || availableSeats === 0
-
-    const { user } = useContext(AuthContext)
-    const [secureAxios] = UseSecureAxios()
 
 
     const handleAddtoCart = () => {
-        const classItem = {
-            itemId: _id,
-            image,
-            instructor,
-            name,
-            email: user.email,
-            price
+        if (!user && loading) {
+            Swal.fire({
+                position: 'center',
+                icon: 'warning',
+                title: 'please login to book class',
+                showConfirmButton: false,
+                timer: 1200
+            })
+            navigate('/login')
         }
 
-        secureAxios.post('/cart', classItem)
-            .then(res => {
-                console.log(res.data);
-                if (res.data.exists === 'exists') {
-                    Swal.fire({
-                        position: 'center',
-                        icon: 'warning',
-                        title: 'class already added',
-                        showConfirmButton: false,
-                        timer: 1200
-                    })
-                }
-                else if (res.data.insertedId) {
-                    Swal.fire({
-                        position: 'center',
-                        icon: 'success',
-                        title: 'class added for enrollment',
-                        showConfirmButton: false,
-                        timer: 1200
-                    })
-                    refetch()
-                }
-            })
+        else {
+            const classItem = {
+                itemId: _id,
+                image,
+                instructor,
+                name,
+                email: user?.email,
+                price
+            }
+
+            secureAxios.post('/cart', classItem)
+                .then(res => {
+                    console.log(res.data);
+                    if (res.data.exists === 'exists') {
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'warning',
+                            title: 'class already added',
+                            showConfirmButton: false,
+                            timer: 1200
+                        })
+                    }
+                    else if (res.data.insertedId) {
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            title: 'class added for enrollment',
+                            showConfirmButton: false,
+                            timer: 1200
+                        })
+                        refetch()
+                    }
+                })
+                .catch(error => {
+                    if (error.status === 401) {
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'warning',
+                            title: 'please login to add to cart',
+                            showConfirmButton: false,
+                            timer: 1200
+                        })
+                    }
+                })
+        }
     }
 
     useEffect(() => {

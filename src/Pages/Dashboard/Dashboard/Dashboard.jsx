@@ -2,12 +2,13 @@ import { useContext } from "react";
 import UseSecureAxios from "../../../Hooks/UseSecureAxios";
 import { AuthContext } from "../../../Providers/AuthProvider";
 import { useQuery } from "@tanstack/react-query";
-import { NavLink } from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom";
 
 import './Dashboard.css'
 
 import { BiSelectMultiple } from 'react-icons/bi';
-import { FaBookOpen, FaHistory } from "react-icons/fa";
+import { FaBars, FaBookOpen, FaHistory } from "react-icons/fa";
+import { IoMdClose } from "react-icons/io";
 
 const Dashboard = () => {
 
@@ -26,21 +27,29 @@ const Dashboard = () => {
     console.log(role);
 
     return (
-        <div className="drawer lg:drawer-open">
+        <div className="drawer lg:drawer-open bg-gray-100">
             <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-            <div className="drawer-content flex flex-col items-center justify-center">
-                {/* Page content here */}
-                <label htmlFor="my-drawer-2" className="btn btn-primary drawer-button lg:hidden">Open drawer</label>
+            <div className="drawer-content py-12">
+                <Outlet></Outlet>
+                <label htmlFor="my-drawer-2" className="lg:hidden absolute top-5 left-5">
+                    <FaBars className="text-xl"></FaBars>
+                </label>
 
             </div>
             <div className="drawer-side">
                 <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
-                <ul className="das-nav bg-[#06d497] w-80 p-4 h-full space-y-4 m-2 rounded-md capitalize text-white">
-                    <div className="flex items-center py-5 pb-10">
-                        <img className="w-10" src="logo.png" alt="" />
-                        <h1 className="italic text-3xl font-bold">CoutureCamp</h1>
+                <ul className="das-nav bg-gradient-to-t from-[#0c98aa] to-[#06d497] lg:w-80 w-[60%] p-4 h-full space-y-4 capitalize text-white">
+                    <label htmlFor="my-drawer-2" className="lg:hidden absolute top-5 right-5">
+                        <IoMdClose className="text-3xl"></IoMdClose>
+                    </label>
+                    <div className="flex">
+                        <img className="h-20 w-20 rounded-xl" src={user?.photoURL} alt="" />
                     </div>
-                    <li><BiSelectMultiple /><NavLink>Selected Classes</NavLink></li>
+                    <div className="flex flex-col lg:flex-row lg:items-center py-5 pb-10 border-b">
+                        <img className="w-10" src="/logo.png" alt="" />
+                        <h1 className="italic text-xl font-bold">CoutureCamp</h1>
+                    </div>
+                    <li><BiSelectMultiple /><NavLink to="/dashboard/selectedClasses">Selected Classes</NavLink></li>
                     <li><FaBookOpen></FaBookOpen><NavLink>Enrolled classes</NavLink></li>
                     <li><FaHistory></FaHistory><NavLink>Payment history</NavLink></li>
                 </ul>
