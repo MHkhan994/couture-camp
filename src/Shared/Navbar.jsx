@@ -1,6 +1,6 @@
 import { Link, NavLink } from "react-router-dom";
 import { FaBars, FaShoppingCart } from 'react-icons/fa';
-import { IoMdClose } from 'react-icons/io'
+import { IoMdClose, IoMdNotifications } from 'react-icons/io'
 import { useContext, useState } from "react";
 import { AuthContext } from "../Providers/AuthProvider";
 import UseCart from "../Hooks/UseCart";
@@ -13,6 +13,7 @@ const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false)
     const { cart } = UseCart()
 
+    console.log(role);
 
     const handleLogout = () => {
         logOut()
@@ -33,10 +34,18 @@ const Navbar = () => {
                     <NavLink className={({ isActive }) => isActive ? 'border-b-4 border-[#03e9a4] px-1' : 'px-1 border-b-4 border-transparent'} to='/instructors'>Instructors</NavLink>
                     <NavLink className={({ isActive }) => isActive ? 'border-b-4 border-[#03e9a4] px-1' : 'px-1 border-b-4 border-transparent'} to='/dashboard'>Dashboard</NavLink>
                     {
-                        role === 'student' && <NavLink className='relative me-2' to='/dashboard/selectedClasses'>
+                        role === 'student' &&
+                        <NavLink className='relative me-2' to='/dashboard/selectedClasses'>
                             <p className="absolute -right-4 -top-3 text-[#03e9a4]">{cart?.length || 0}</p>
                             <FaShoppingCart className="text-xl">
                             </FaShoppingCart>
+                        </NavLink>
+                    }
+                    {
+                        role === 'admin' && <NavLink className='relative me-2' to='/dashboard/selectedClasses'>
+                            <p className="absolute -right-2 -top-3 text-[#03e9a4]">{cart?.length || 0}</p>
+                            <IoMdNotifications className="text-2xl mb-1">
+                            </IoMdNotifications>
                         </NavLink>
                     }
                     {
@@ -74,10 +83,18 @@ const Navbar = () => {
                         <NavLink onClick={() => setIsOpen(false)} className={({ isActive }) => isActive ? 'border-b-4 border-[#03e9a4] px-1' : 'px-1 border-b-4 border-transparent'} to='/instructors'>Instructors</NavLink>
                         <NavLink className={({ isActive }) => isActive ? 'border-b-4 border-[#03e9a4] px-1' : 'px-1 border-b-4 border-transparent'} to='/dashboard'>Dashboard</NavLink>
                         {
-                            role === 'student' && <NavLink className='relative me-2' to='/dashboard/selectedClasses'>
+                            role === 'student' &&
+                            <NavLink className='relative me-2' to='/dashboard/selectedClasses'>
                                 <p className="absolute -right-4 -top-3 text-[#03e9a4]">{cart?.length || 0}</p>
                                 <FaShoppingCart className="text-xl">
                                 </FaShoppingCart>
+                            </NavLink>
+                        }
+                        {
+                            role === 'admin' && <NavLink className='relative me-2' to='/dashboard/selectedClasses'>
+                                <p className="absolute -right-4 -top-3 text-[#03e9a4]">{cart?.length || 0}</p>
+                                <IoMdNotifications className="text-xl">
+                                </IoMdNotifications>
                             </NavLink>
                         }
                         {

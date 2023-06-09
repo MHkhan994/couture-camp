@@ -8,14 +8,15 @@ const UseFindRole = () => {
     const [secureAxios] = UseSecureAxios()
     const { user, loading } = useContext(AuthContext)
 
-    const { data: role = '', isLoading: roleLoading } = useQuery({
+    const { data: role = '', isLoading: roleLoading, refetch: roleRefetch } = useQuery({
         queryKey: ['user-role', user, secureAxios],
-        enabled: !loading,
+        enabled: !loading && user !== null,
         queryFn: async () => {
-            const res = await secureAxios(`/users/role/${user.email}`)
+            const res = await secureAxios(`/users/role/${user?.email}`)
             return res.data.role
         }
     })
+
 
     return { role, roleLoading }
 };

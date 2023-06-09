@@ -17,19 +17,6 @@ const Login = () => {
         login(data.email, data.password)
             .then((result) => {
                 console.log(result.user);
-                const user = { email: result.user.email, name: result.user.displayName }
-                fetch('http://localhost:5000/jwt', {
-                    method: 'POST',
-                    headers: {
-                        'content-type': 'application/json'
-                    },
-                    body: JSON.stringify(user)
-                })
-                    .then(res => res.json())
-                    .then(data => {
-                        localStorage.setItem('access-token', data.token)
-                        navigate('/')
-                    })
             })
             .catch(error => console.log(error))
     };
@@ -38,37 +25,25 @@ const Login = () => {
     // handle googleSignin
     const handleGoogleLogin = () => {
         googleLogin()
-            .then((result) => {
+            .then(result => {
                 const loggedUser = result.user;
-                const user = { email: loggedUser.email, name: loggedUser.displayName }
-                fetch('http://localhost:5000/jwt', {
-                    method: 'POST',
-                    headers: {
-                        'content-type': 'application/json'
-                    },
-                    body: JSON.stringify(user)
-                })
-                    .then(res => res.json())
-                    .then(data => {
-                        localStorage.setItem('access-token', data.token)
-                        const newUser = {
-                            email: loggedUser.email,
-                            name: loggedUser.displayName,
-                            phoneNumber: loggedUser.phone || '',
-                            address: loggedUser.address || '',
-                            gender: loggedUser.gender || '',
-                            image: loggedUser.photoURL || '',
-                            role: 'student'
+                const newUser = {
+                    userId: loggedUser.uid,
+                    email: loggedUser.email,
+                    name: loggedUser.displayName,
+                    phoneNumber: loggedUser.phone || '',
+                    address: loggedUser.address || '',
+                    gender: loggedUser.gender || '',
+                    image: loggedUser.photoURL || '',
+                    role: 'student'
+                }
+                axios.post('http://localhost:5000/users', newUser)
+                    .then(res => {
+                        if (res.data) {
+                            navigate('/')
                         }
-                        axios.post('http://localhost:5000/users', newUser)
-                            .then(res => {
-                                if (res.data) {
-                                    navigate('/')
-                                }
-                            })
-                        navigate('/')
                     })
-
+                navigate('/')
             })
             .catch(error => console.log(error))
     }

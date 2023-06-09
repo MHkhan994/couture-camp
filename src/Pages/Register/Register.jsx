@@ -10,7 +10,7 @@ import axios from "axios";
 const img_hosting_token = import.meta.env.VITE_Img_Upload_Token;
 
 const Register = () => {
-    const { createUser, logOut, googleLogin } = useContext(AuthContext)
+    const { createUser, googleLogin } = useContext(AuthContext)
     const [error, setError] = useState('')
     const navigate = useNavigate()
 
@@ -40,78 +40,64 @@ const Register = () => {
         })
             .then(res => res.json())
             .then(imgData => {
-                if (imgData.success) {
-                    const imgURL = imgData.data.display_url
-                    createUser(data.email, data.password)
-                        .then(result => {
-                            console.log(result.user);
-                            updateProfile(result.user, {
-                                displayName: data.name,
-                                photoURL: imgURL
+                const imgURL = imgData.data?.display_url
+                createUser(data.email, data.password)
+                    .then(result => {
+                        const loggedUser = result.user;
+                        updateProfile(result.user, {
+                            displayName: data.name,
+                            photoURL: imgURL || ''
+                        })
+                            .then(() => {
+                                const newUser = {
+                                    userId: loggedUser.uid,
+                                    email: loggedUser.email,
+                                    name: loggedUser.name,
+                                    image: loggedUser.photoURL || '',
+                                    phoneNumber: loggedUser.phone || '',
+                                    address: loggedUser.address || '',
+                                    gender: loggedUser.gender || '',
+                                    role: 'student'
+                                }
+                                axios.post('http://localhost:5000/users', newUser)
+                                    .then(res => {
+                                        if (res.data.insertedId) {
+                                            navigate('/')
+                                        }
+                                    })
+                                    .catch(error => {
+                                        console.log(error.message)
+                                        if (error.message.includes('email-already-in-use')) {
+                                            setError({ type: 'user exists' })
+                                        }
+                                    })
                             })
-                                .then(() => {
-                                    const newUser = {
-                                        email: data.email,
-                                        name: data.name,
-                                        phoneNumber: data.phone || '',
-                                        address: data.address || '',
-                                        gender: data.gender || '',
-                                        role: 'student'
-                                    }
-                                    axios.post('http://localhost:5000/users', newUser)
-                                        .then(res => {
-                                            if (res.data.insertedId) {
-                                                logOut()
-                                                navigate('/login')
-                                            }
-                                        })
-                                })
-                        })
-                        .catch(error => {
-                            console.log(error.message)
-                            if (error.message.includes('email-already-in-use')) {
-                                setError({ type: 'user exists' })
-                            }
-                        })
-                }
+                    })
             })
-
     };
 
     // handle googleSignin
     const handleGoogleLogin = () => {
         googleLogin()
-            .then((result) => {
+            .then(result => {
                 const loggedUser = result.user;
-                const user = { email: loggedUser.email, name: loggedUser.displayName }
-                fetch('http://localhost:5000/jwt', {
-                    method: 'POST',
-                    headers: {
-                        'content-type': 'application/json'
-                    },
-                    body: JSON.stringify(user)
-                })
-                    .then(res => res.json())
-                    .then(data => {
-                        localStorage.setItem('access-token', data.token)
-                        const newUser = {
-                            email: loggedUser.email,
-                            name: loggedUser.displayName,
-                            phoneNumber: loggedUser.phone || '',
-                            address: loggedUser.address || '',
-                            gender: loggedUser.gender || '',
-                            image: loggedUser.photoURL || '',
-                            role: 'student'
+                const newUser = {
+                    userId: loggedUser.uid,
+                    email: loggedUser.email,
+                    name: loggedUser.displayName,
+                    phoneNumber: loggedUser.phone || '',
+                    address: loggedUser.address || '',
+                    gender: loggedUser.gender || '',
+                    image: loggedUser.photoURL || '',
+                    role: 'student'
+                }
+                axios.post('http://localhost:5000/users', newUser)
+                    .then(res => {
+                        if (res.data) {
+                            navigate('/')
                         }
-                        axios.post('http://localhost:5000/users', newUser)
-                            .then(res => {
-                                if (res.data) {
-                                    navigate('/')
-                                }
-                            })
-                        navigate('/')
                     })
-
+                navigate('/')
             })
             .catch(error => console.log(error))
     }

@@ -9,6 +9,8 @@ const AdminRoute = ({ children }) => {
     const { role, roleLoading } = UseFindRole()
     const location = useLocation()
 
+    console.log(loading, roleLoading);
+
     if (loading || roleLoading) {
         return <LoadingSpinner></LoadingSpinner>
     }

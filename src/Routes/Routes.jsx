@@ -11,6 +11,7 @@ import StudentRoute from "./StudentRoute";
 import EnrolledClasses from "../Pages/Dashboard/EnrolledClasses/EnrolledClasses";
 import AdminRoute from "./AdminRoute";
 import ManageUsers from "../Pages/Dashboard/ManageUsers/ManageUsers";
+// import PrivateRoute from "./PrivsateRoute";
 
 export const router = createBrowserRouter([
     {

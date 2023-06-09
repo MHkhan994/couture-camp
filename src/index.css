@@ -30,6 +30,10 @@ body{
   @apply my-bg px-5 text-lg py-2  text-white font-semibold
 }
 
+.admin-button:disabled{
+  opacity: 0.4;
+}
+
 .my-button:hover{
   background: #06d497;
 }
