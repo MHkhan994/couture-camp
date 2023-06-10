@@ -17,7 +17,7 @@ const PopularInstructors = () => {
     return (
         <div className="pb-20 my-container">
             <SectionHeading heading='popular Instructors'></SectionHeading>
-            <div className="grid lg:grid-cols-3 gap-4">
+            <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-4">
                 {
                     instructors.map(item => <InstructorCard key={item._id} item={item}></InstructorCard>)
                 }

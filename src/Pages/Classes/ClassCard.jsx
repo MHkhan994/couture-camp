@@ -6,18 +6,20 @@ import UseSecureAxios from '../../Hooks/UseSecureAxios';
 import Swal from 'sweetalert2';
 import UseCart from '../../Hooks/UseCart';
 import { useNavigate } from 'react-router-dom';
+import UseFindRole from '../../Hooks/UseFindRole';
 
 const ClassCard = ({ item }) => {
     const { _id, name, price, instructor, image, duration, availableSeats } = item;
     const { user, loading } = useContext(AuthContext)
     const [secureAxios] = UseSecureAxios()
     const navigate = useNavigate()
+    const { role } = UseFindRole()
 
     const { cart, refetch } = UseCart()
-    const userCart = cart.filter(item => item.email === user.email)
     // gets all the item ids to cartIds array. if item._id is in cartIds button isDisabled === true
+    const userCart = cart.filter(item => item.email === user.email)
     const cartIds = userCart.map(item => item.itemId)
-    const isdisabled = cartIds.includes(_id) || availableSeats === 0
+    const isdisabled = cartIds.includes(_id) || availableSeats === 0 || role === 'admin' || role === 'instructor'
 
 
     const handleAddtoCart = () => {

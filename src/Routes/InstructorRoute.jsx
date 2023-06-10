@@ -4,7 +4,7 @@ import UseFindRole from "../Hooks/UseFindRole";
 import LoadingSpinner from "../Components/LoadingSpinner";
 import { Navigate, useLocation } from "react-router-dom";
 
-const AdminRoute = ({ children }) => {
+const InstructorRoute = ({ children }) => {
     const { user, loading } = useContext(AuthContext)
     const { role, roleLoading } = UseFindRole()
     const location = useLocation()
@@ -15,15 +15,15 @@ const AdminRoute = ({ children }) => {
         return <LoadingSpinner></LoadingSpinner>
     }
 
-    else if (user && role === 'admin') {
+    else if (user && role === 'instructor') {
         return children
     }
 
-    else if (user && role !== 'admin') {
+    else if (user && role !== 'instructor') {
         return <Navigate to='/'></Navigate>
     }
 
     return <Navigate state={{ from: location }} to='/'></Navigate>
 };
 
-export default AdminRoute;
+export default InstructorRoute;

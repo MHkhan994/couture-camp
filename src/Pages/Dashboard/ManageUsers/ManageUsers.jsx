@@ -77,23 +77,25 @@ const ManageUsers = () => {
     return (
         <div className="dash-container">
             <SectionHeading heading='Manage Users'></SectionHeading>
-            <div className="grid lg:grid-cols-1 gap-4">
+            <div className="grid lg:grid-cols-1 gap-4 justify-center">
                 {
-                    users.map(user => <div key={user._id} className="flex flex-col lg:flex-row justify-between bg-white rounded-md shadow-lg p-3">
-                        <img className="h-32 rounded-md" src={user.image} alt="user-image" onError={(e) => { e.target.src = '/errProfile.jpg' }} />
-                        <div className="flex justify-center flex-col flex-grow ps-6">
-                            <h2 className="text-xl"><span className="font-semibold">Name: </span> {user.name}</h2>
-                            <h2 className="text-xl"><span className="font-semibold">Instructor: </span> {user.email}</h2>
-                            <h2 className="text-xl text-[#03e9a4]"><span className="font-semibold text-black">Role: </span>{user.role}</h2>
+                    users.map(user => <div key={user._id} className="flex flex-col md:flex-row lg:flex-row justify-between bg-white rounded-md shadow-lg p-3 gap-3">
+                        <div className="flex justify-center items-center">
+                            <img className="h-20 w-20 rounded-full" src={user.image} alt="user-image" onError={(e) => { e.target.src = '/errProfile.jpg' }} />
                         </div>
-                        <div className="lg:flex flex-col justify-center lg:pe-10 gap-3">
-                            <button onClick={() => handleDeleteUser(user.email)} disabled={user.role === 'admin'} className="py-2 px-4 border admin-button bg-gray-200">
+                        <div className="flex justify-center flex-col flex-grow ps-6">
+                            <h2 className="text-lg"><span className="font-semibold">Name: </span> {user.name}</h2>
+                            <h2 className="text-lg"><span className="font-semibold">Instructor: </span> {user.email}</h2>
+                            <h2 className="text-lg text-[#03e9a4]"><span className="font-semibold text-black">Role: </span>{user.role}</h2>
+                        </div>
+                        <div className="flex flex-col justify-center lg:pe-10 gap-1">
+                            <button onClick={() => handleDeleteUser(user.email)} disabled={user.role === 'admin'} className="py-1 px-2 border admin-button bg-gray-200">
                                 Delete User
                             </button>
-                            <button onClick={() => handleUpdateRole(user.email, 'instructor')} disabled={user.role === 'instructor' || user.role === 'admin'} className="py-2 px-4 border admin-button bg-gray-200">
+                            <button onClick={() => handleUpdateRole(user.email, 'instructor')} disabled={user.role === 'instructor' || user.role === 'admin'} className="py-1 px-2 border admin-button bg-gray-200">
                                 Make Instructor
                             </button>
-                            <button onClick={() => handleUpdateRole(user.email, 'admin')} disabled={user.role === 'admin'} className="py-2 px-4 border admin-button bg-gray-200">
+                            <button onClick={() => handleUpdateRole(user.email, 'admin')} disabled={user.role === 'admin'} className="py-1 px-2 border admin-button bg-gray-200">
                                 Make Admin
                             </button>
                         </div>

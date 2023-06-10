@@ -22,7 +22,7 @@ const Instructors = () => {
                 isLoading && <LoadingSpinner></LoadingSpinner>
             }
             {
-                !isLoading && <div className="my-container grid gap-4 mt-20 lg:grid-cols-3">
+                !isLoading && <div className="my-container grid gap-4 mt-20 lg:grid-cols-3 md:grid-cols-2">
                     {
                         instructors.map(item => <InstructorCard key={item._id} item={item}>
 

@@ -14,7 +14,7 @@ const Banner = () => {
 
 
     return (
-        <div className='min-h-[100vh] pt-20 bg-center bg-cover'>
+        <div className='lg:min-h-[90vh] pt-20 bg-center bg-cover'>
             <Swiper
                 slidesPerView={1}
                 loop={true}
@@ -26,7 +26,7 @@ const Banner = () => {
                     clickable: true
                 }}
                 modules={[Autoplay, Pagination, Navigation]}
-                className='h-full'
+                className='h-full lg:mt-10'
             >
                 <SwiperSlide className='w-full mb-6'>
                     <div className='h-full flex flex-col-reverse lg:flex-row items-center justify-between my-container gap-4'>

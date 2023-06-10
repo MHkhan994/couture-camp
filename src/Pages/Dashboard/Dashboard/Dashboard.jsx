@@ -3,6 +3,7 @@ import { NavLink, Outlet } from "react-router-dom";
 import './Dashboard.css'
 
 import { BiSelectMultiple } from 'react-icons/bi';
+import { GiNotebook } from 'react-icons/gi'
 import { FaBars, FaBook, FaBookOpen, FaHistory, FaHome } from "react-icons/fa";
 import { MdOutlinePersonalInjury } from 'react-icons/md'
 import { IoMdClose } from "react-icons/io";
@@ -28,14 +29,14 @@ const Dashboard = () => {
             </div>
             <div className="drawer-side">
                 <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
-                <ul className="das-nav bg-gradient-to-t from-[#0c98aa] to-[#06d497] lg:w-72 w-[60%] p-4 h-full flex flex-col items-center gap-4 capitalize text-white">
+                <ul className="das-nav bg-gradient-to-t from-[#0c98aa] to-[#06d497] lg:w-72 w-[60%] p-4 h-full flex flex-col  gap-4 capitalize text-white">
                     <label htmlFor="my-drawer-2" className="lg:hidden absolute top-5 right-5">
                         <IoMdClose className="text-3xl"></IoMdClose>
                     </label>
                     <div className="flex">
                         <img className="h-20 w-20 rounded-xl" src={user?.photoURL} alt="" />
                     </div>
-                    <div className="flex flex-col lg:flex-row items-center py-5 pb-10 border-b">
+                    <div className="flex flex-col lg:flex-row gap-1 items-center py-5 pb-10 border-b">
                         <img className="w-10" src="/logo.png" alt="" />
                         <h1 className="italic text-xl font-bold">CoutureCamp</h1>
                     </div>
@@ -45,6 +46,13 @@ const Dashboard = () => {
                             <li><BiSelectMultiple /><NavLink className={({ isActive }) => isActive ? 'ps-3 text-black' : ''} to="/dashboard/selectedClasses">Selected Classes</NavLink></li>
                             <li><FaBookOpen></FaBookOpen><NavLink className={({ isActive }) => isActive ? 'ps-3 text-black' : ''} to='/dashboard/enrolledClasses'>Enrolled classes</NavLink></li>
                             <li><FaHistory></FaHistory><NavLink>Payment history</NavLink></li>
+                        </>
+                    }
+
+                    {
+                        role === 'instructor' && <>
+                            <li><FaBookOpen></FaBookOpen><NavLink className={({ isActive }) => isActive ? 'ps-3 text-black' : ''} to='/dashboard/myClasses'>My classes</NavLink></li>
+                            <li><GiNotebook></GiNotebook><NavLink className={({ isActive }) => isActive ? 'ps-3 text-black' : ''} to='/dashboard/addClass'>Add class</NavLink></li>
                         </>
                     }
 

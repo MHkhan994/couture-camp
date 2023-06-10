@@ -42,7 +42,7 @@ const Navbar = () => {
                         </NavLink>
                     }
                     {
-                        role === 'admin' && <NavLink className='relative me-2' to='/dashboard/selectedClasses'>
+                        (role === 'admin' || role === 'instructor') && <NavLink className='relative me-2' to='/dashboard/selectedClasses'>
                             <p className="absolute -right-2 -top-3 text-[#03e9a4]">{cart?.length || 0}</p>
                             <IoMdNotifications className="text-2xl mb-1">
                             </IoMdNotifications>
@@ -91,7 +91,7 @@ const Navbar = () => {
                             </NavLink>
                         }
                         {
-                            role === 'admin' && <NavLink className='relative me-2' to='/dashboard/selectedClasses'>
+                            (role === 'admin' || role === 'instructor') && <NavLink className='relative me-2' to='/dashboard/selectedClasses'>
                                 <p className="absolute -right-4 -top-3 text-[#03e9a4]">{cart?.length || 0}</p>
                                 <IoMdNotifications className="text-xl">
                                 </IoMdNotifications>
