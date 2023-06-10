@@ -144,7 +144,7 @@ const AddClass = () => {
                             <label className="label">
                                 <span className="label-text">Photo</span>
                             </label>
-                            <input {...register('photo')} type="file" className="w-full" />
+                            <input {...register('photo', { required: true })} type="file" className="w-full" />
                         </div>
                     </div>
 

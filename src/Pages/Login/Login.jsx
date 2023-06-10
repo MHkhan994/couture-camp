@@ -26,7 +26,9 @@ const Login = () => {
                     showConfirmButton: false,
                     timer: 1500
                 })
-                navigate('/')
+                setTimeout(() => {
+                    navigate('/')
+                }, 100);
             })
             .catch(error => {
                 console.log(error.message)
@@ -61,7 +63,6 @@ const Login = () => {
                             navigate('/')
                         }
                     })
-                navigate('/')
             })
             .catch(error => {
                 console.log(error);

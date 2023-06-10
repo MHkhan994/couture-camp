@@ -43,7 +43,7 @@ const Navbar = () => {
                     }
                     {
                         (role === 'admin' || role === 'instructor') && <NavLink className='relative me-2' to='/dashboard/selectedClasses'>
-                            <p className="absolute -right-2 -top-3 text-[#03e9a4]">{cart?.length || 0}</p>
+                            <p className="absolute -right-2 -top-3 text-[#03e9a4]"></p>
                             <IoMdNotifications className="text-2xl mb-1">
                             </IoMdNotifications>
                         </NavLink>

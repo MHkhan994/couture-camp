@@ -6,46 +6,52 @@ import axios from "axios";
 const auth = getAuth(app)
 export const AuthContext = createContext()
 
-const googleProvider = new GoogleAuthProvider()
+
 
 const AuthProvider = ({ children }) => {
 
     const [user, setUser] = useState(null)
     const [loading, setLoading] = useState(true)
 
+    console.log(user);
+
     const createUser = (email, password) => {
+        setLoading(true)
         return createUserWithEmailAndPassword(auth, email, password)
     }
 
     const login = (email, password) => {
+        setLoading(true)
         return signInWithEmailAndPassword(auth, email, password)
     }
 
     const logOut = () => {
-        signOut(auth)
+        setLoading(true)
+        return signOut(auth)
     }
 
+    const googleProvider = new GoogleAuthProvider()
     const googleLogin = () => {
         return signInWithPopup(auth, googleProvider)
     }
 
     useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+        const unsubscribe = onAuthStateChanged(auth, currentUser => {
             setUser(currentUser)
+            setLoading(false)
             if (currentUser) {
                 const user = { email: currentUser.email, name: currentUser.displayName }
                 axios.post('http://localhost:5000/jwt', user)
                     .then((res) => {
                         localStorage.setItem('access-token', res.data.token)
                     })
-                setLoading(false)
             }
             else {
                 setUser(null)
                 localStorage.removeItem('access-token')
             }
         })
-        return () => unsubscribe()
+        return () => { unsubscribe() }
     }, [])
 
     const authInfo = {

@@ -45,6 +45,8 @@ const MyClasses = () => {
         })
     }
 
+    console.log(userclasses);
+
     return (
         <div className="dash-container">
             <SectionHeading heading="my classes"></SectionHeading>
@@ -72,7 +74,7 @@ const MyClasses = () => {
                                         {index + 1}
                                     </th>
                                     <td>
-                                        <div className="flex items-center space-x-3">
+                                        <div className="flex items-center space-x-3 text-start">
                                             <div className="avatar">
                                                 <div className="rounded-md w-24 h-24">
                                                     <img src={item.image} alt="Avatar Tailwind CSS Component" />
@@ -86,12 +88,12 @@ const MyClasses = () => {
                                         </div>
                                     </td>
                                     <td>
-                                        {item.feedback}
+                                        {item.feedback || 'No feedback available'}
                                     </td>
                                     <td>
-                                        {
-                                            item.status && <p className="text-orange-500">{item.status}</p>
-                                        }
+                                        {item.status == 'pending' && <p className="text-orange-400">{item.status}</p>}
+                                        {item.status == 'denied' && <p className="text-red-700">{item.status}</p>}
+                                        {item.status == 'approved' && <p className="text-green-500">{item.status}</p>}
                                     </td>
                                     <th>
                                         <button onClick={() => handleDelteClass(item._id)} disabled={item.status === 'approved'} className="py-1 px-3 border disabled-button bg-gray-200 font-normal">
