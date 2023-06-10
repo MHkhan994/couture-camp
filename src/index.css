@@ -30,7 +30,7 @@ body{
   @apply my-bg px-5 text-lg py-2  text-white font-semibold
 }
 
-.admin-button:disabled{
+.disabled-button:disabled{
   opacity: 0.4;
 }
 
@@ -39,7 +39,7 @@ body{
 }
 
 .my-button:disabled{
-    @apply bg-[#60726d]
+    @apply bg-[#60726d] opacity-80
 }
 
 .my-button-second{

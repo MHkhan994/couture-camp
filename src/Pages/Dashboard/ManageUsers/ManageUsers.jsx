@@ -89,13 +89,13 @@ const ManageUsers = () => {
                             <h2 className="text-lg text-[#03e9a4]"><span className="font-semibold text-black">Role: </span>{user.role}</h2>
                         </div>
                         <div className="flex flex-col justify-center lg:pe-10 gap-1">
-                            <button onClick={() => handleDeleteUser(user.email)} disabled={user.role === 'admin'} className="py-1 px-2 border admin-button bg-gray-200">
+                            <button onClick={() => handleDeleteUser(user.email)} disabled={user.role === 'admin'} className="py-1 px-2 border disabled-button bg-gray-200">
                                 Delete User
                             </button>
-                            <button onClick={() => handleUpdateRole(user.email, 'instructor')} disabled={user.role === 'instructor' || user.role === 'admin'} className="py-1 px-2 border admin-button bg-gray-200">
+                            <button onClick={() => handleUpdateRole(user.email, 'instructor')} disabled={user.role === 'instructor' || user.role === 'admin'} className="py-1 px-2 border disabled-button bg-gray-200">
                                 Make Instructor
                             </button>
-                            <button onClick={() => handleUpdateRole(user.email, 'admin')} disabled={user.role === 'admin'} className="py-1 px-2 border admin-button bg-gray-200">
+                            <button onClick={() => handleUpdateRole(user.email, 'admin')} disabled={user.role === 'admin'} className="py-1 px-2 border disabled-button bg-gray-200">
                                 Make Admin
                             </button>
                         </div>

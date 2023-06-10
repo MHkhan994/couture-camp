@@ -5,6 +5,7 @@ import { AuthContext } from "../../../Providers/AuthProvider";
 import UseSecureAxios from "../../../Hooks/UseSecureAxios";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 
 const img_hosting_token = import.meta.env.VITE_Img_Upload_Token;
 
@@ -14,9 +15,28 @@ const AddClass = () => {
     const [secureAxios] = UseSecureAxios()
     const navigate = useNavigate()
 
+    const { data: classes = [] } = useQuery({
+        queryKey: ['instructors-classes', user],
+        queryFn: async () => {
+            const res = await secureAxios.get(`/classes/instructor/${user.email}`)
+            return res.data
+        }
+    })
+
 
     const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmit = data => {
+        if (classes.length >= 3) {
+            Swal.fire({
+                position: 'center',
+                icon: 'error',
+                title: "you can't add more than 3 classes",
+                text: 'you already have 3 classes',
+                showConfirmButton: false,
+                timer: 2000
+            })
+            return
+        }
         const formData = new FormData()
         formData.append('image', data.photo[0])
         fetch(`https://api.imgbb.com/1/upload?&key=${img_hosting_token}`, {
@@ -55,6 +75,7 @@ const AddClass = () => {
                 console.log(newClass);
             })
             .catch(error => {
+                console.log(error);
                 Swal.fire({
                     position: 'center',
                     icon: 'error',
@@ -72,7 +93,7 @@ const AddClass = () => {
             <SectionHeading heading='add class'></SectionHeading>
             <div>
                 <form onSubmit={handleSubmit(onSubmit)} >
-                    <div className="grid grid-cols-2 gap-3">
+                    <div className="grid lg:grid-cols-2 gap-3">
                         <div className="form-control">
                             <label className="label">
                                 <span className="label-text">Class Name</span>

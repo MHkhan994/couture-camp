@@ -20,7 +20,7 @@ const Dashboard = () => {
     return (
         <div className="drawer lg:drawer-open bg-gray-100 min-h-screen">
             <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-            <div className="drawer-content py-12">
+            <div className="drawer-content py-12 max-w-[100vw]">
                 <Outlet></Outlet>
                 <label htmlFor="my-drawer-2" className="lg:hidden absolute top-5 left-5">
                     <FaBars className="text-xl"></FaBars>
