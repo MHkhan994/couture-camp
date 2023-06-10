@@ -17,39 +17,6 @@ const ManageUsers = () => {
     })
 
 
-    // -------------------- deltes user form database and also user cart--------------
-    const handleDeleteUser = (email) => {
-        Swal.fire({
-            title: 'Are you sure you want to delete this user?',
-            text: "You won't be able to revert this!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete user'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                secureAxios.delete(`/user/${email}`)
-                    .then(() => {
-                        Swal.fire(
-                            'User has been deleted.',
-                            'success'
-                        )
-                        usersRefetch()
-                    })
-                    .catch(() => {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: 'Something went wrong!',
-                        })
-                    })
-            }
-        })
-
-    }
-
-
     // -------------------- updates userrole to instructor or admin------------
     const handleUpdateRole = (email, newRole) => {
         Swal.fire({
@@ -89,9 +56,6 @@ const ManageUsers = () => {
                             <h2 className="text-lg text-[#03e9a4]"><span className="font-semibold text-black">Role: </span>{user.role}</h2>
                         </div>
                         <div className="flex flex-col justify-center lg:pe-10 gap-1">
-                            <button onClick={() => handleDeleteUser(user.email)} disabled={user.role === 'admin'} className="py-1 px-2 border disabled-button bg-gray-200">
-                                Delete User
-                            </button>
                             <button onClick={() => handleUpdateRole(user.email, 'instructor')} disabled={user.role === 'instructor' || user.role === 'admin'} className="py-1 px-2 border disabled-button bg-gray-200">
                                 Make Instructor
                             </button>
