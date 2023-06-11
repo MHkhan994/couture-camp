@@ -55,17 +55,6 @@ const AuthProvider = ({ children }) => {
         return () => { unsubscribe() }
     }, [])
 
-    function toggleTheme() {
-        setIsNight(!isNight)
-        const htmlTag = document.getElementById('htmlTag');
-
-        if (isNight) {
-            htmlTag.removeAttribute('data-theme')
-        }
-        else {
-            htmlTag.setAttribute('data-theme', 'night');
-        }
-    }
 
     const authInfo = {
         user,
@@ -74,7 +63,7 @@ const AuthProvider = ({ children }) => {
         login,
         googleLogin,
         logOut,
-        toggleTheme,
+        setIsNight,
         isNight
     }
 

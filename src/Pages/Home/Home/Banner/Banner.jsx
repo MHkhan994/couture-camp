@@ -14,7 +14,7 @@ const Banner = () => {
 
 
     return (
-        <div className='lg:min-h-[90vh] pt-20 bg-center bg-cover'>
+        <div className='lg:h-[90vh] flex items-center pt-20 bg-center bg-cover'>
             <Swiper
                 slidesPerView={1}
                 loop={true}
