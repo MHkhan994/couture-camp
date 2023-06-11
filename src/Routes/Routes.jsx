@@ -18,6 +18,7 @@ import ManageClasses from "../Pages/Dashboard/ManageClasses/ManageClasses";
 import PrivateRoute from "./PrivateRoute";
 import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 import Payment from "../Pages/Dashboard/Payment/Payment";
+import PaymentHistory from "../Pages/Dashboard/PaymentHistory/PaymentHistory";
 
 export const router = createBrowserRouter([
     {
@@ -64,6 +65,10 @@ export const router = createBrowserRouter([
             {
                 path: 'payment/:id',
                 element: <StudentRoute> <Payment></Payment></StudentRoute>
+            },
+            {
+                path: 'paymentHistory',
+                element: <StudentRoute><PaymentHistory></PaymentHistory></StudentRoute>
             },
 
             // instructor routes

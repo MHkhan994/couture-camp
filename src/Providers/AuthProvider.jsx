@@ -12,6 +12,7 @@ const AuthProvider = ({ children }) => {
 
     const [user, setUser] = useState(null)
     const [loading, setLoading] = useState(true)
+    const [isNight, setIsNight] = useState(false)
 
     console.log(user);
 
@@ -54,13 +55,27 @@ const AuthProvider = ({ children }) => {
         return () => { unsubscribe() }
     }, [])
 
+    function toggleTheme() {
+        setIsNight(!isNight)
+        const htmlTag = document.getElementById('htmlTag');
+
+        if (isNight) {
+            htmlTag.removeAttribute('data-theme')
+        }
+        else {
+            htmlTag.setAttribute('data-theme', 'night');
+        }
+    }
+
     const authInfo = {
         user,
         loading,
         createUser,
         login,
         googleLogin,
-        logOut
+        logOut,
+        toggleTheme,
+        isNight
     }
 
     return (

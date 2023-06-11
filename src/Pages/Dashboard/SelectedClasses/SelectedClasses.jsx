@@ -41,11 +41,11 @@ const SelectedClasses = () => {
 
     return (
         <div className='dash-container'>
-            <SectionHeading heading='selected classes'></SectionHeading>
+            <SectionHeading heading='selected classes' number={cart.length}></SectionHeading>
             {
                 !cartLoading && <div className="grid lg:grid-cols-1 gap-5">
                     {
-                        cart.map(item => <div key={item._id} className="flex flex-col lg:flex-row justify-between bg-white rounded-md shadow-lg p-3">
+                        cart.map(item => <div key={item._id} className="flex flex-col lg:flex-row justify-between border rounded-md shadow-lg p-3">
                             <img className="lg:h-44 rounded-md" src={item.image} alt="" />
                             <div className="flex justify-center flex-col flex-grow ps-6">
                                 <h2 className="text-xl"><span className="font-semibold">Name: </span> {item.name}</h2>

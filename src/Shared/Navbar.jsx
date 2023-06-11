@@ -8,7 +8,7 @@ import UseFindRole from "../Hooks/UseFindRole";
 
 const Navbar = () => {
 
-    const { user, logOut } = useContext(AuthContext)
+    const { user, logOut, toggleTheme, isNight } = useContext(AuthContext)
     const { role } = UseFindRole()
     const [isOpen, setIsOpen] = useState(false)
     const { cart } = UseCart()
@@ -21,8 +21,15 @@ const Navbar = () => {
         setIsOpen(false)
     }
 
+    const handleToggle = () => {
+        toggleTheme()
+        setIsOpen(false)
+    }
+
+    console.log(isNight);
+
     return (
-        <div className="fixed w-full backdrop-blur-sm z-10 shadow-md">
+        <div className={!isNight ? "bg-[#ffffff5e] fixed w-full backdrop-blur-sm z-10 shadow-md" : "bg-[#00000056] fixed w-full backdrop-blur-sm z-10 shadow-md"}>
             <div className=" my-container lg:flex justify-between hidden py-5">
                 <div className="flex items-center">
                     <img className="w-10 object-cover" src="logo.png" alt="" />
@@ -54,6 +61,9 @@ const Navbar = () => {
                     {
                         user && <img className="h-10 w-10 bg-blue-400 rounded-full" src={user.photoURL} alt="" />
                     }
+                    <button onClick={toggleTheme}>
+                        toggle
+                    </button>
                 </ul>
             </div>
 
@@ -103,6 +113,9 @@ const Navbar = () => {
                         {
                             user && <img className="h-10 w-10 bg-blue-400 rounded-full" src={user.photoURL} alt="" />
                         }
+                        <button onClick={handleToggle}>
+                            <input type="checkbox" className="toggle toggle-info" checked />
+                        </button>
                     </ul>
                 }
             </div>
