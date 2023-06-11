@@ -108,7 +108,7 @@ const Navbar = () => {
                             </NavLink>
                         }
                         {
-                            user ? <button onClick={handleLogout} className="my-button mb-1">Log Out</button> : <Link className="my-button mb-1" to='/login'>Login</Link>
+                            user ? <button onClick={handleLogout} className="my-button mb-1">Log Out</button> : <Link onClick={() => setIsOpen(false)} className="my-button mb-1" to='/login'>Login</Link>
                         }
                         {
                             user && <img className="h-10 w-10 bg-blue-400 rounded-full" src={user.photoURL} alt="" />

@@ -145,6 +145,7 @@ const AddClass = () => {
                                 <span className="label-text">Photo</span>
                             </label>
                             <input {...register('photo', { required: true })} type="file" className="w-full" />
+                            {errors?.photo?.type === 'required' && <p className="text-red-500 pt-2">please upload a relavent photo.</p>}
                         </div>
                     </div>
 

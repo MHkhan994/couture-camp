@@ -42,7 +42,7 @@ const AuthProvider = ({ children }) => {
             setLoading(false)
             if (currentUser) {
                 const user = { email: currentUser.email, name: currentUser.displayName }
-                axios.post('http://localhost:5000/jwt', user)
+                axios.post('https://couture-camp-server.vercel.app/jwt', user)
                     .then((res) => {
                         localStorage.setItem('access-token', res.data.token)
                     })

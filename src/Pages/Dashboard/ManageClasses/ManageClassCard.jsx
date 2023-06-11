@@ -56,7 +56,7 @@ const ManageClassCard = ({ item, classRefetch }) => {
 
     return (
         <div key={_id} className="flex flex-col md:flex-row lg:flex-row justify-between bg-white rounded-md shadow-lg p-3 gap-3 lg:-center -start">
-            <img className="h-32 rounded-lg" src={image} alt="" />
+            <img className="lg:h-32 rounded-lg" src={image} alt="" />
             <div>
                 <h1>Name: {name}</h1>
                 <p>Instructor: {instructor}</p>

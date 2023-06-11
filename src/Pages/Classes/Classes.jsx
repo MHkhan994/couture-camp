@@ -9,7 +9,7 @@ const Classes = () => {
     const { data: classes = [], isLoading } = useQuery({
         queryKey: ['classes'],
         queryFn: async () => {
-            const res = await axios.get('http://localhost:5000/classes')
+            const res = await axios.get('https://couture-camp-server.vercel.app/classes')
             return res.data
         }
     })

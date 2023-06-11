@@ -23,7 +23,7 @@ const PaymentHistory = () => {
     return (
         <div className="dash-container">
             <SectionHeading heading='payment history'></SectionHeading>
-            <div>
+            <div className="overflow-x-auto max-w-[100vw]">
                 <table className="table-lg w-full">
                     {/* head */}
                     <thead className="bg-[#06d497]">

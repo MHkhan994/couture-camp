@@ -6,6 +6,7 @@ import { useContext, useState } from "react";
 import { AuthContext } from "../../Providers/AuthProvider";
 import { updateProfile } from "firebase/auth";
 import axios from "axios";
+import SectionHeading from "../../Components/SectionHeading";
 
 const img_hosting_token = import.meta.env.VITE_Img_Upload_Token;
 
@@ -59,7 +60,7 @@ const Register = () => {
                                     gender: loggedUser.gender || '',
                                     role: 'student'
                                 }
-                                axios.post('http://localhost:5000/users', newUser)
+                                axios.post('https://couture-camp-server.vercel.app/users', newUser)
                                     .then(res => {
                                         if (res.data.insertedId) {
                                             navigate('/')
@@ -91,7 +92,7 @@ const Register = () => {
                     image: loggedUser.photoURL || '',
                     role: 'student'
                 }
-                axios.post('http://localhost:5000/users', newUser)
+                axios.post('https://couture-camp-server.vercel.app/users', newUser)
                     .then(res => {
                         if (res.data) {
                             navigate('/')
@@ -103,8 +104,9 @@ const Register = () => {
     }
 
     return (
-        <div className="grid lg:grid-cols-2 items-center min-h-screen h-auto my-container gap-8 lg:pt-32 pt-20 pb-10">
-            <div>
+        <div className="grid lg:grid-cols-2 items-center justify-center min-h-screen h-auto my-container gap-8 lg:pt-32 pt-20 pb-10">
+            <div className="mt-5">
+                <SectionHeading heading='register'></SectionHeading>
                 <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
                     <div className="form-control">
                         <label className="label">

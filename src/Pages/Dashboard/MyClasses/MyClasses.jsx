@@ -54,7 +54,7 @@ const MyClasses = () => {
                 classLoading && <LoadingSpinner></LoadingSpinner>
             }
             {
-                !classLoading && <div className="overflow-x-auto">
+                !classLoading && <div className="overflow-x-auto max-w-[100vw]">
                     <table className="table-lg w-full">
                         {/* head */}
                         <thead className="bg-[#06d497]">

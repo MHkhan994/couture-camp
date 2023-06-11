@@ -53,12 +53,12 @@ const SelectedClasses = () => {
                                 <h2 className="text-xl"><span className="font-semibold">Price: </span> ${item.price}</h2>
                             </div>
                             <div className="lg:flex flex-col justify-center lg:pe-10 gap-3">
-                                <button onClick={() => handleDelete(item._id)} className="p-2 bg-red-600 rounded-md text-white text-xl flex justify-center">
-                                    <FaTrash className="text-center"></FaTrash>
-                                </button>
-                                <button className="p-2 px-4 bg-green-600 text-white rounded-md font-semibold">
-                                    <Link to={`/dashboard/payment/${item._id}`}>Pay</Link>
-                                </button>
+                                <div className="flex lg:flex-col gap-3 justify-center py-3">
+                                    <button onClick={() => handleDelete(item._id)} className="p-2 bg-red-600 rounded-md text-white text-xl flex justify-center">
+                                        <FaTrash className="text-center"></FaTrash>
+                                    </button>
+                                    <Link className="p-2 px-4 bg-green-600 text-white rounded-md font-semibold" to={`/dashboard/payment/${item._id}`}>Pay</Link>
+                                </div>
                             </div>
                         </div>)
                     }

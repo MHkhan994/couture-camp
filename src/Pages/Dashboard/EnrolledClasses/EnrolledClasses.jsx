@@ -22,44 +22,46 @@ const EnrolledClasses = () => {
     return (
         <div className="dash-container">
             <SectionHeading heading='enrolled classes' number={classes.length}></SectionHeading>
-            <table className="table-lg w-full">
-                {/* head */}
-                <thead className="bg-[#06d497]">
-                    <tr>
-                        <th>
-                        </th>
-                        <th>Details</th>
-                        <th>Instractor</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {
-                        classes.map((item, index) => {
-                            return <tr className="text-center border" key={item._id}>
-                                <th>
-                                    {index + 1}
-                                </th>
-                                <td>
-                                    <div className="flex items-center space-x-3 text-start">
-                                        <div className="avatar">
-                                            <div className="rounded-md w-24 h-24">
-                                                <img src={item.image} alt="Avatar Tailwind CSS Component" />
+            <div className="max-w-[100vw] overflow-x-hidden">
+                <table className="table">
+                    {/* head */}
+                    <thead className="bg-[#06d497]">
+                        <tr>
+                            <th>
+                            </th>
+                            <th>Details</th>
+                            <th>Instractor</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {
+                            classes.map((item, index) => {
+                                return <tr className="text-center border" key={item._id}>
+                                    <th>
+                                        {index + 1}
+                                    </th>
+                                    <td>
+                                        <div className="flex items-center space-x-3 text-start">
+                                            <div className="avatar">
+                                                <div className="rounded-md w-24 h-24">
+                                                    <img src={item.image} alt="Avatar Tailwind CSS Component" />
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div className="font-bold">{item.name}</div>
+                                                <div>Price: ${item.price}</div>
                                             </div>
                                         </div>
-                                        <div>
-                                            <div className="font-bold">{item.name}</div>
-                                            <div>Price: ${item.price}</div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    {item.instructor}
-                                </td>
-                            </tr>
-                        })
-                    }
-                </tbody>
-            </table>
+                                    </td>
+                                    <td>
+                                        {item.instructor}
+                                    </td>
+                                </tr>
+                            })
+                        }
+                    </tbody>
+                </table>
+            </div>
         </div>
     );
 };

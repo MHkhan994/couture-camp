@@ -6,6 +6,7 @@ import { useContext, useState } from "react";
 import { AuthContext } from "../../Providers/AuthProvider";
 import axios from "axios";
 import Swal from "sweetalert2";
+import SectionHeading from "../../Components/SectionHeading";
 
 const Login = () => {
 
@@ -57,7 +58,7 @@ const Login = () => {
                     image: loggedUser.photoURL || '',
                     role: 'student'
                 }
-                axios.post('http://localhost:5000/users', newUser)
+                axios.post('https://couture-camp-server.vercel.app/users', newUser)
                     .then(res => {
                         if (res.data) {
                             navigate('/')
@@ -71,8 +72,9 @@ const Login = () => {
 
 
     return (
-        <div className="grid lg:grid-cols-2 items-center min-h-screen my-container gap-8 pt-20">
-            <div>
+        <div className="grid lg:grid-cols-2 items-center justify-center min-h-screen my-container gap-8 pt-20">
+            <div className="mt-5">
+                <SectionHeading heading='login'></SectionHeading>
                 <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
 
                     <div className="form-control">

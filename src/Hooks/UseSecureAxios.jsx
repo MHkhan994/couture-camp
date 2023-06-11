@@ -9,7 +9,7 @@ const UseSecureAxios = () => {
     const { logOut } = useContext(AuthContext)
     const navigate = useNavigate()
 
-    const secureAxios = axios.create({ baseURL: 'http://localhost:5000' })
+    const secureAxios = axios.create({ baseURL: 'https://couture-camp-server.vercel.app' })
 
 
     useEffect(() => {
