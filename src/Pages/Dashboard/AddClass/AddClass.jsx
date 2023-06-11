@@ -50,7 +50,7 @@ const AddClass = () => {
                     name: data.name,
                     price: parseInt(data.price),
                     instructor: data.instructor,
-                    email: user.email,
+                    instructorEmail: user.email,
                     availableSeats: parseInt(data.seats),
                     duration: parseInt(data.duration),
                     students: 0,

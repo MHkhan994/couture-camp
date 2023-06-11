@@ -3,7 +3,7 @@ import UseSecureAxios from '../../../Hooks/UseSecureAxios';
 
 const ManageClassCard = ({ item, classRefetch }) => {
 
-    const { _id, name, status, instructor, email, image } = item
+    const { _id, name, status, instructor, instructorEmail, image } = item
     const [secureAxios] = UseSecureAxios()
 
     const showModal = (id) => {
@@ -60,7 +60,7 @@ const ManageClassCard = ({ item, classRefetch }) => {
             <div>
                 <h1>Name: {name}</h1>
                 <p>Instructor: {instructor}</p>
-                <p>Email: {email}</p>
+                <p>Email: {instructorEmail}</p>
                 <p>{_id}</p>
             </div>
             <div className='flex items-center'>

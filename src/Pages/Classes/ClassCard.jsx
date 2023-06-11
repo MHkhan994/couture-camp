@@ -9,17 +9,18 @@ import { useNavigate } from 'react-router-dom';
 import UseFindRole from '../../Hooks/UseFindRole';
 
 const ClassCard = ({ item }) => {
-    const { _id, name, price, instructor, image, duration, availableSeats } = item;
+    const { _id, name, price, instructorEmail, instructor, image, duration, availableSeats } = item;
     const { user, loading } = useContext(AuthContext)
     const [secureAxios] = UseSecureAxios()
     const navigate = useNavigate()
     const { role } = UseFindRole()
 
-    const { cart, refetch } = UseCart()
     // gets all the item ids to cartIds array. if item._id is in cartIds button isDisabled === true
+    const { cart, refetch } = UseCart()
     const userCart = cart.filter(item => item.email === user.email)
     const cartIds = userCart.map(item => item.itemId)
     const isdisabled = cartIds.includes(_id) || availableSeats === 0 || role === 'admin' || role === 'instructor'
+
 
 
     const handleAddtoCart = () => {
@@ -39,45 +40,66 @@ const ClassCard = ({ item }) => {
                 itemId: _id,
                 image,
                 instructor,
+                instructorEmail,
                 name,
                 email: user?.email,
                 price
             }
 
-            secureAxios.post('/cart', classItem)
+            secureAxios.patch(`/payments/user`, { id: _id, email: user?.email })
                 .then(res => {
-                    console.log(res.data);
-                    if (res.data.exists === 'exists') {
+                    if (res.data.exists === true) {
                         Swal.fire({
                             position: 'center',
                             icon: 'warning',
-                            title: 'class already added',
+                            title: 'you have already enrolled in this class',
                             showConfirmButton: false,
                             timer: 1200
                         })
+                        return
                     }
-                    else if (res.data.insertedId) {
-                        Swal.fire({
-                            position: 'center',
-                            icon: 'success',
-                            title: 'class added for enrollment',
-                            showConfirmButton: false,
-                            timer: 1200
-                        })
-                        refetch()
+                    else {
+                        secureAxios.post('/cart', classItem)
+                            .then(res => {
+                                console.log(res.data);
+                                if (res.data.exists === 'exists') {
+                                    Swal.fire({
+                                        position: 'center',
+                                        icon: 'warning',
+                                        title: 'class already added',
+                                        showConfirmButton: false,
+                                        timer: 1200
+                                    })
+                                    return
+                                }
+                                else if (res.data.insertedId) {
+                                    Swal.fire({
+                                        position: 'center',
+                                        icon: 'success',
+                                        title: 'class added for enrollment',
+                                        showConfirmButton: false,
+                                        timer: 1200
+                                    })
+                                    refetch()
+                                }
+                            })
+                            .catch(error => {
+                                if (error.status === 401) {
+                                    Swal.fire({
+                                        position: 'center',
+                                        icon: 'warning',
+                                        title: 'please login to add to cart',
+                                        showConfirmButton: false,
+                                        timer: 1200
+                                    })
+                                }
+                            })
                     }
                 })
-                .catch(error => {
-                    if (error.status === 401) {
-                        Swal.fire({
-                            position: 'center',
-                            icon: 'warning',
-                            title: 'please login to add to cart',
-                            showConfirmButton: false,
-                            timer: 1200
-                        })
-                    }
-                })
+
+
+
+
         }
     }
 
@@ -98,7 +120,7 @@ const ClassCard = ({ item }) => {
                     <p>Duration: {duration} days</p>
                 </div>
                 <button onClick={handleAddtoCart} disabled={isdisabled} className={availableSeats === 0 ? "my-button w-40 mx-auto" : "my-button w-40 mx-auto mt-2"}>
-                    Select
+                    select
                 </button>
             </div>
         </div>

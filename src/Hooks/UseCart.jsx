@@ -8,7 +8,7 @@ const UseCart = () => {
     const { user, loading } = useContext(AuthContext)
 
     const [secureAxios] = UseSecureAxios()
-    const { data: cart = [], refetch } = useQuery({
+    const { data: cart = [], refetch, isLoading: cartLoading } = useQuery({
         queryKey: ['cart', user],
         enabled: !loading && user !== null,
         queryFn: async () => {
@@ -17,7 +17,7 @@ const UseCart = () => {
         }
     })
 
-    return { cart, refetch }
+    return { cart, refetch, cartLoading }
 };
 
 export default UseCart;

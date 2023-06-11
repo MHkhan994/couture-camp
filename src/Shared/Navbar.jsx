@@ -25,7 +25,7 @@ const Navbar = () => {
         <div className="fixed w-full backdrop-blur-sm z-10 shadow-md">
             <div className=" my-container lg:flex justify-between hidden py-5">
                 <div className="flex items-center">
-                    <img className="w-10" src="logo.png" alt="" />
+                    <img className="w-10 object-cover" src="logo.png" alt="" />
                     <h1 className="italic text-3xl font-bold">CoutureCamp</h1>
                 </div>
                 <ul className="flex gap-5 items-center text-lg">
