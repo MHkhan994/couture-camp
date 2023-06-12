@@ -6,6 +6,7 @@ import { AuthContext } from "../Providers/AuthProvider";
 import UseCart from "../Hooks/UseCart";
 import UseFindRole from "../Hooks/UseFindRole";
 
+
 const Navbar = () => {
 
     const { user, logOut, isNight, setIsNight } = useContext(AuthContext)
@@ -51,7 +52,7 @@ const Navbar = () => {
             <div className=" my-container lg:flex justify-between hidden py-5">
                 <div className="flex items-center">
                     <img className="w-10 object-cover" src="logo.png" alt="" />
-                    <h1 className="italic text-3xl font-bold">CoutureCamp</h1>
+                    <h1 className=" italic text-3xl font-bold">CoutureCamp</h1>
                 </div>
                 <ul className="flex gap-5 items-center text-lg">
                     <NavLink className={({ isActive }) => isActive ? 'border-b-4 border-[#03e9a4] px-1' : 'px-1 border-b-4 border-transparent'} to='/'>Home</NavLink>
