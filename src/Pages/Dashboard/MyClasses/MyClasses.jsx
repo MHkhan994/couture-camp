@@ -5,6 +5,7 @@ import { AuthContext } from "../../../Providers/AuthProvider";
 import SectionHeading from "../../../Components/SectionHeading";
 import LoadingSpinner from "../../../Components/LoadingSpinner";
 import Swal from "sweetalert2";
+import HelmetTitle from "../../../Components/HelmetTitle";
 
 const MyClasses = () => {
 
@@ -49,6 +50,7 @@ const MyClasses = () => {
 
     return (
         <div className="dash-container">
+            <HelmetTitle title='My Classes'></HelmetTitle>
             <SectionHeading heading="my classes"></SectionHeading>
             {
                 classLoading && <LoadingSpinner></LoadingSpinner>

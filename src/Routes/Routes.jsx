@@ -19,6 +19,7 @@ import PrivateRoute from "./PrivateRoute";
 import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 import Payment from "../Pages/Dashboard/Payment/Payment";
 import PaymentHistory from "../Pages/Dashboard/PaymentHistory/PaymentHistory";
+import ProfileRoute from "./ProfileRoute";
 
 export const router = createBrowserRouter([
     {
@@ -54,6 +55,10 @@ export const router = createBrowserRouter([
         errorElement: <ErrorPage></ErrorPage>,
         children: [
             // student routes
+            {
+                path: 'profile',
+                element: <ProfileRoute></ProfileRoute>
+            },
             {
                 path: 'selectedClasses',
                 element: <StudentRoute><SelectedClasses></SelectedClasses></StudentRoute>

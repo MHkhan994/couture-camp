@@ -1,12 +1,13 @@
 import { useForm } from "react-hook-form";
 import loginImg from '../../assets/login.png'
-import { FaGithub, FaGoogle } from "react-icons/fa";
+import { FaGoogle } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../Providers/AuthProvider";
 import { updateProfile } from "firebase/auth";
 import axios from "axios";
 import SectionHeading from "../../Components/SectionHeading";
+import HelmetTitle from "../../Components/HelmetTitle";
 
 const img_hosting_token = import.meta.env.VITE_Img_Upload_Token;
 
@@ -53,7 +54,7 @@ const Register = () => {
                                 const newUser = {
                                     userId: loggedUser.uid,
                                     email: loggedUser.email,
-                                    name: loggedUser.name,
+                                    name: loggedUser.displayName,
                                     image: loggedUser.photoURL || '',
                                     phoneNumber: loggedUser.phone || '',
                                     address: loggedUser.address || '',
@@ -105,6 +106,7 @@ const Register = () => {
 
     return (
         <div className="grid lg:grid-cols-2 items-center justify-center min-h-screen h-auto my-container gap-8 lg:pt-32 pt-20 pb-10">
+            <HelmetTitle title='Register'></HelmetTitle>
             <div className="mt-5">
                 <SectionHeading heading='register'></SectionHeading>
                 <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
@@ -185,9 +187,6 @@ const Register = () => {
                 <div className="flex justify-center pt-3 text-white text-2xl gap-3">
                     <button onClick={handleGoogleLogin} className="bg-blue-500 rounded-full px-2 py-2">
                         <FaGoogle></FaGoogle>
-                    </button>
-                    <button className="bg-gray-500 rounded-full px-2 py-2">
-                        <FaGithub></FaGithub>
                     </button>
                 </div>
                 <p className="text-center pt-4">Already have an accout? <Link className="text-[#03e9a4]" to='/login'>Login</Link></p>

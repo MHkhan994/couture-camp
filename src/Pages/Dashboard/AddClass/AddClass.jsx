@@ -6,6 +6,7 @@ import UseSecureAxios from "../../../Hooks/UseSecureAxios";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
+import HelmetTitle from "../../../Components/HelmetTitle";
 
 const img_hosting_token = import.meta.env.VITE_Img_Upload_Token;
 
@@ -90,6 +91,7 @@ const AddClass = () => {
 
     return (
         <div className="dash-container">
+            <HelmetTitle title='Add Class'></HelmetTitle>
             <SectionHeading heading='add class'></SectionHeading>
             <div>
                 <form onSubmit={handleSubmit(onSubmit)} >

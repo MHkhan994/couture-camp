@@ -8,17 +8,30 @@ import { FaBars, FaBook, FaBookOpen, FaHistory, FaHome } from "react-icons/fa";
 import { MdOutlinePersonalInjury } from 'react-icons/md'
 import { IoMdClose } from "react-icons/io";
 import UseFindRole from "../../../Hooks/UseFindRole";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { AuthContext } from "../../../Providers/AuthProvider";
+import HelmetTitle from "../../../Components/HelmetTitle";
 
 const Dashboard = () => {
-    const { user, isNight } = useContext(AuthContext)
+    const { user, isNight, setIsNight } = useContext(AuthContext)
     const { role } = UseFindRole()
 
-    console.log(role);
+    useEffect(() => {
+        const localTheme = localStorage.getItem('couture-theme')
+        document.querySelector('html').setAttribute('data-theme', localTheme)
+        if (localTheme === 'night') {
+            setIsNight(true)
+        }
+        else {
+            setIsNight(false)
+        }
+        // navigate('/dashboard/profile')
+    }, [setIsNight])
+
 
     return (
         <div className="drawer lg:drawer-open min-h-screen">
+            <HelmetTitle title='Dashboard'></HelmetTitle>
             <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
             <div className="drawer-content py-12">
                 <Outlet></Outlet>
@@ -43,6 +56,7 @@ const Dashboard = () => {
 
                     {
                         role === 'student' && <>
+                            <li><FaHome /><NavLink className={({ isActive }) => isActive ? 'ps-3 text-[#03e9a4]' : ''} to="/dashboard/profile">Profile</NavLink></li>
                             <li><BiSelectMultiple /><NavLink className={({ isActive }) => isActive ? 'ps-3 text-[#03e9a4]' : ''} to="/dashboard/selectedClasses">Selected Classes</NavLink></li>
                             <li><FaBookOpen></FaBookOpen><NavLink className={({ isActive }) => isActive ? 'ps-3 text-[#03e9a4]' : ''} to='/dashboard/enrolledClasses'>Enrolled classes</NavLink></li>
                             <li><FaHistory></FaHistory><NavLink className={({ isActive }) => isActive ? 'ps-3 text-[#03e9a4]' : ''} to='/dashboard/paymentHistory'>Payment history</NavLink></li>
@@ -51,6 +65,7 @@ const Dashboard = () => {
 
                     {
                         role === 'instructor' && <>
+                            <li><FaHome /><NavLink className={({ isActive }) => isActive ? 'ps-3 text-[#03e9a4]' : ''} to="/dashboard/profile">Profile</NavLink></li>
                             <li><FaBookOpen></FaBookOpen><NavLink className={({ isActive }) => isActive ? 'ps-3 text-[#03e9a4]' : ''} to='/dashboard/myClasses'>My classes</NavLink></li>
                             <li><GiNotebook></GiNotebook><NavLink className={({ isActive }) => isActive ? 'ps-3 text-[#03e9a4]' : ''} to='/dashboard/addClass'>Add class</NavLink></li>
                         </>
@@ -58,6 +73,7 @@ const Dashboard = () => {
 
                     {
                         role === 'admin' && <>
+                            <li><FaHome /><NavLink className={({ isActive }) => isActive ? 'ps-3 text-[#03e9a4]' : ''} to="/dashboard/profile">Profile</NavLink></li>
                             <li><BiSelectMultiple /><NavLink className={({ isActive }) => isActive ? 'ps-3 text-[#03e9a4]' : ''} to="/dashboard/manageClasses">Manage Classes</NavLink></li>
                             <li><FaBookOpen></FaBookOpen><NavLink className={({ isActive }) => isActive ? 'ps-3 text-[#03e9a4]' : ''} to='/dashboard/manageUsers'>Manage Users</NavLink></li>
                         </>

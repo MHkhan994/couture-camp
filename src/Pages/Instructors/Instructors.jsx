@@ -3,6 +3,7 @@ import axios from "axios";
 import PageBanner from "../../Components/PageBanner";
 import LoadingSpinner from "../../Components/LoadingSpinner";
 import InstructorCard from "./InstructorCard";
+import HelmetTitle from "../../Components/HelmetTitle";
 
 const Instructors = () => {
 
@@ -17,6 +18,7 @@ const Instructors = () => {
 
     return (
         <div>
+            <HelmetTitle title='Instructors'></HelmetTitle>
             <PageBanner heading='Our Instructors'></PageBanner>
             {
                 isLoading && <LoadingSpinner></LoadingSpinner>

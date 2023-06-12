@@ -4,6 +4,7 @@ import SectionHeading from "../../../Components/SectionHeading";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from "./CheckoutForm";
+import HelmetTitle from "../../../Components/HelmetTitle";
 
 const stripePromise = loadStripe(`${import.meta.env.VITE_Pusblish_Key}`)
 
@@ -20,6 +21,7 @@ const Payment = () => {
     const { image, name, price, instructor, email } = selectedClass
     return (
         !cartLoading && <div className="dash-container">
+            <HelmetTitle title='Payment'></HelmetTitle>
             <SectionHeading heading='payment'></SectionHeading>
             <div className="flex flex-col items-center gap-3">
                 <img className="lg:w-1/3 w-[70%] pb-5 rounded-md" src={image} alt="" />

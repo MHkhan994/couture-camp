@@ -3,6 +3,7 @@ import SectionHeading from "../../../Components/SectionHeading";
 import { AuthContext } from "../../../Providers/AuthProvider";
 import { useQuery } from "@tanstack/react-query";
 import UseSecureAxios from "../../../Hooks/UseSecureAxios";
+import HelmetTitle from "../../../Components/HelmetTitle";
 
 const PaymentHistory = () => {
     const { user } = useContext(AuthContext)
@@ -22,6 +23,7 @@ const PaymentHistory = () => {
 
     return (
         <div className="dash-container">
+            <HelmetTitle title='Payment History'></HelmetTitle>
             <SectionHeading heading='payment history'></SectionHeading>
             <div className="overflow-x-auto max-w-[100vw]">
                 <table className="table-lg w-full">
@@ -73,6 +75,11 @@ const PaymentHistory = () => {
                         }
                     </tbody>
                 </table>
+                {
+                    classes.length === 0 && <div className="flex h-[60vh] justify-center items-center">
+                        <p>No payment history</p>
+                    </div>
+                }
             </div>
         </div>
     );

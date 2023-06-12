@@ -7,6 +7,7 @@ import Swal from 'sweetalert2';
 import UseCart from '../../Hooks/UseCart';
 import { useNavigate } from 'react-router-dom';
 import UseFindRole from '../../Hooks/UseFindRole';
+import UseisPaid from '../../Hooks/UseisPaid';
 
 const ClassCard = ({ item }) => {
     const { _id, name, price, instructorEmail, instructor, image, duration, availableSeats } = item;
@@ -15,11 +16,17 @@ const ClassCard = ({ item }) => {
     const navigate = useNavigate()
     const { role } = UseFindRole()
 
+    // finds if the class is already enrolled
+    const { paidClasses } = UseisPaid(user?.email)
+    const paid = paidClasses.find(i => i.itemId === _id)
+    console.log(paid);
+
+
     // gets all the item ids to cartIds array. if item._id is in cartIds button isDisabled === true
     const { cart, refetch } = UseCart()
     const userCart = cart.filter(item => item.email === user.email)
     const cartIds = userCart.map(item => item.itemId)
-    const isdisabled = cartIds.includes(_id) || availableSeats === 0 || role === 'admin' || role === 'instructor'
+    const isdisabled = cartIds.includes(_id) || availableSeats === 0 || role === 'admin' || role === 'instructor' || paid
 
 
 

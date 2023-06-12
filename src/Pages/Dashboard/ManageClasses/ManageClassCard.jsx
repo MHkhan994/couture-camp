@@ -1,5 +1,6 @@
 import Swal from 'sweetalert2';
 import UseSecureAxios from '../../../Hooks/UseSecureAxios';
+import HelmetTitle from '../../../Components/HelmetTitle';
 
 const ManageClassCard = ({ item, classRefetch }) => {
 
@@ -55,7 +56,8 @@ const ManageClassCard = ({ item, classRefetch }) => {
 
 
     return (
-        <div key={_id} className="flex flex-col md:flex-row lg:flex-row justify-between bg-white rounded-md shadow-lg p-3 gap-3 lg:-center -start">
+        <div key={_id} className="flex flex-col md:flex-row lg:flex-row justify-between border rounded-md shadow-lg p-3 gap-3 lg:-center -start">
+            <HelmetTitle title='Manage Classes'></HelmetTitle>
             <img className="lg:h-32 rounded-lg" src={image} alt="" />
             <div>
                 <h1>Name: {name}</h1>
@@ -75,13 +77,13 @@ const ManageClassCard = ({ item, classRefetch }) => {
                 }
             </div>
             <div className="flex flex-col justify-center lg:pe-10 gap-2">
-                <button disabled={status === 'approved' || status === 'denied'} onClick={() => handleStatusChange(_id, 'approved')} className="py-1 px-4 shadow-md disabled-button bg-gray-200">
+                <button disabled={status === 'approved' || status === 'denied'} onClick={() => handleStatusChange(_id, 'approved')} className="py-1 px-4 shadow-md disabled-button border">
                     Approve
                 </button>
-                <button disabled={status === 'approved' || status === 'denied'} onClick={() => handleStatusChange(_id, 'denied')} className="py-1 px-4 shadow-md border disabled-button bg-gray-200">
+                <button disabled={status === 'approved' || status === 'denied'} onClick={() => handleStatusChange(_id, 'denied')} className="py-1 px-4 shadow-md border disabled-button">
                     Deny
                 </button>
-                <button onClick={() => showModal(_id)} disabled={status === 'approved' || status !== 'denied'} className="py-1 px-4 shadow-md border disabled-button bg-gray-200">
+                <button onClick={() => showModal(_id)} disabled={status === 'approved' || status !== 'denied'} className="py-1 px-4 shadow-md border disabled-button">
                     Feedback
                 </button>
                 <dialog id={`my_modal_${_id}`} className="modal">

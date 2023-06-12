@@ -6,6 +6,7 @@ import Swal from "sweetalert2";
 import UseSecureAxios from "../../../Hooks/UseSecureAxios";
 import { useContext } from "react";
 import { AuthContext } from "../../../Providers/AuthProvider";
+import HelmetTitle from "../../../Components/HelmetTitle";
 
 const SelectedClasses = () => {
 
@@ -41,6 +42,7 @@ const SelectedClasses = () => {
 
     return (
         <div className='dash-container'>
+            <HelmetTitle title='Selected Classes'></HelmetTitle>
             <SectionHeading heading='selected classes' number={cart.length}></SectionHeading>
             {
                 !cartLoading && <div className="grid lg:grid-cols-1 gap-5">
@@ -62,6 +64,11 @@ const SelectedClasses = () => {
                             </div>
                         </div>)
                     }
+                </div>
+            }
+            {
+                cart.length === 0 && <div className="flex h-[60vh] justify-center items-center">
+                    <p>You have't selected any classes</p>
                 </div>
             }
         </div>

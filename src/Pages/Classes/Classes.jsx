@@ -3,6 +3,7 @@ import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import LoadingSpinner from "../../Components/LoadingSpinner";
 import ClassCard from "./ClassCard";
+import HelmetTitle from "../../Components/HelmetTitle";
 
 const Classes = () => {
 
@@ -17,6 +18,7 @@ const Classes = () => {
 
     return (
         <div>
+            <HelmetTitle title='classes'></HelmetTitle>
             <PageBanner heading='Our Classes'></PageBanner>
             {
                 isLoading && <LoadingSpinner></LoadingSpinner>

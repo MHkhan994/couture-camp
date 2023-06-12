@@ -1,12 +1,13 @@
 import { useForm } from "react-hook-form";
 import loginImg from '../../assets/login.png'
-import { FaGithub, FaGoogle } from "react-icons/fa";
+import { FaGoogle } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../Providers/AuthProvider";
 import axios from "axios";
 import Swal from "sweetalert2";
 import SectionHeading from "../../Components/SectionHeading";
+import HelmetTitle from "../../Components/HelmetTitle";
 
 const Login = () => {
 
@@ -27,9 +28,11 @@ const Login = () => {
                     showConfirmButton: false,
                     timer: 1500
                 })
-                setTimeout(() => {
-                    navigate('/')
-                }, 100);
+                if (result.user) {
+                    setTimeout(() => {
+                        navigate('/')
+                    }, 1000);
+                }
             })
             .catch(error => {
                 console.log(error.message)
@@ -73,6 +76,7 @@ const Login = () => {
 
     return (
         <div className="grid lg:grid-cols-2 items-center justify-center min-h-screen my-container gap-8 pt-20">
+            <HelmetTitle title='Login'></HelmetTitle>
             <div className="mt-5">
                 <SectionHeading heading='login'></SectionHeading>
                 <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
@@ -101,9 +105,6 @@ const Login = () => {
                 <div className="flex justify-center pt-3 text-white text-2xl gap-3">
                     <button onClick={handleGoogleLogin} className="bg-blue-500 rounded-full px-2 py-2">
                         <FaGoogle></FaGoogle>
-                    </button>
-                    <button className="bg-gray-500 rounded-full px-2 py-2">
-                        <FaGithub></FaGithub>
                     </button>
                 </div>
                 <p className="text-center pt-4">Don't have an accout? <Link className="text-[#03e9a4]" to='/register'>Register</Link></p>

@@ -3,6 +3,7 @@ import SectionHeading from "../../../Components/SectionHeading";
 import { AuthContext } from "../../../Providers/AuthProvider";
 import { useQuery } from "@tanstack/react-query";
 import UseSecureAxios from "../../../Hooks/UseSecureAxios";
+import HelmetTitle from "../../../Components/HelmetTitle";
 
 const EnrolledClasses = () => {
 
@@ -21,6 +22,7 @@ const EnrolledClasses = () => {
 
     return (
         <div className="dash-container">
+            <HelmetTitle title='Enrolled Classes'></HelmetTitle>
             <SectionHeading heading='enrolled classes' number={classes.length}></SectionHeading>
             <div className="max-w-[100vw] overflow-x-hidden">
                 <table className="table">
@@ -61,6 +63,11 @@ const EnrolledClasses = () => {
                         }
                     </tbody>
                 </table>
+                {
+                    classes.length === 0 && <div className="flex h-[60vh] justify-center items-center">
+                        <p>You have't enrolled to any classes</p>
+                    </div>
+                }
             </div>
         </div>
     );
