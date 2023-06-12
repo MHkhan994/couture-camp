@@ -117,7 +117,7 @@ const ClassCard = ({ item }) => {
 
     return (
         <div data-aos="fade-up" data-aos-duration="1000" className={availableSeats === 0 ? "card card-compact bg-red-100 border-red-700 border shadow-lg" : "card card-compact border bg-base-100 shadow-lg"}>
-            <figure><img src={image} alt="Shoes" /></figure>
+            <figure><img src={image} alt="card image" /></figure>
             <div className="card-body">
                 <h1 className="text-xl font-semibold pt-2">Course Name: {name}</h1>
                 <div className="text-lg space-y-1">
